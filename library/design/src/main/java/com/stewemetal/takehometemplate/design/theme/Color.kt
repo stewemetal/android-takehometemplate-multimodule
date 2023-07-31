@@ -1,4 +1,4 @@
-package com.stewemetal.takehometemplate.ui.theme
+package com.stewemetal.takehometemplate.design.theme
 
 import androidx.compose.ui.graphics.Color
 

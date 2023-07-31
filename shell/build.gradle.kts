@@ -1,4 +1,3 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     id("com.stewemetal.takehometemplate.android.base.library")
     id("com.stewemetal.takehometemplate.android.library.compose")

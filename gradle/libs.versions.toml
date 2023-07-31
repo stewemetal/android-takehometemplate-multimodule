@@ -20,6 +20,7 @@ android-min-sdk = "29"
 android-target-sdk = "33"
 jvm-target = "11"
 io-gitlab-arturbosch-detekt = "1.23.0"
+com-squareup-retrofit2 = "2.9"
 
 [libraries]
 org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
@@ -47,12 +48,14 @@ io-insert-koin-compose = { group = "io.insert-koin", name = "koin-compose", vers
 io-insert-koin-test = { group = "io.insert-koin", name = "koin-test", version.ref = "io-insert-koin" }
 io-insert-koin-test-junit4 = { group = "io.insert-koin", name = "koin-test-junit4", version.ref = "io-insert-koin" }
 io-gitlab-arturbosch-detekt-formatting = { group = "io.gitlab.arturbosch.detekt", name = "detekt-formatting", version.ref = "io-gitlab-arturbosch-detekt" }
+com-squareup-retrofit2 = {group = "com.squareup.retrofit2", name = "retrofit", version.ref = "com-squareup-retrofit2"}
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
 io-gitlab-arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "io-gitlab-arturbosch-detekt" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
 
 [bundles]
 compose = ["androidx-compose-ui", "androidx-compose-ui-graphics", "androidx-compose-ui-tooling", "androidx-compose-ui-tooling-preview"]

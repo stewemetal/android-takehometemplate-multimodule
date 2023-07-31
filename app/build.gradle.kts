@@ -1,4 +1,3 @@
-@Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
     id("com.stewemetal.takehometemplate.android.application")
     id("com.stewemetal.takehometemplate.android.application.compose")
@@ -25,7 +24,10 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
-            proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
         }
     }
     packaging {
@@ -37,6 +39,8 @@ android {
 
 dependencies {
     implementation(project(":shell"))
+
+    implementation(project(":library:design"))
 
     implementation(libs.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
