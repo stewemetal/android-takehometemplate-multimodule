@@ -608,7 +608,7 @@ style:
     active: true
     maxJumpCount: 1
   MagicNumber:
-    active: true
+    active: false
     excludes: [
       '**/theme/Color.kt',
       '**/test/**',
