@@ -1,12 +1,13 @@
+
 import com.android.build.api.dsl.LibraryExtension
-import com.stewemetal.convention.configureKotlinAndroid
-import com.tier.app.convention.ANDROID_TARGET_SDK_VERSION
+import com.stewemetal.convention.configuration.ANDROID_TARGET_SDK_VERSION
+import com.stewemetal.convention.configuration.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
-import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.dependencies
+import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.kotlin
 
 class AndroidLibraryPlugin : Plugin<Project> {

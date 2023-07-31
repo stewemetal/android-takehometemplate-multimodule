@@ -1,6 +1,6 @@
 import com.android.build.api.dsl.ApplicationExtension
-import com.stewemetal.convention.configureKotlinAndroid
-import com.tier.app.convention.ANDROID_TARGET_SDK_VERSION
+import com.stewemetal.convention.configuration.configureKotlinAndroid
+import com.stewemetal.convention.configuration.ANDROID_TARGET_SDK_VERSION
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.getByType

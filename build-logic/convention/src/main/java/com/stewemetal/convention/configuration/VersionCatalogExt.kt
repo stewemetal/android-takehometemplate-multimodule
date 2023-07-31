@@ -1,4 +1,4 @@
-package com.tier.app.convention
+package com.stewemetal.convention.configuration
 
 import org.gradle.api.Project
 import org.gradle.api.artifacts.ExternalModuleDependencyBundle

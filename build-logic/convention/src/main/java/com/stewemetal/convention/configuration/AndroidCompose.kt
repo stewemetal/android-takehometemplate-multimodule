@@ -1,11 +1,6 @@
 package com.stewemetal.convention.configuration
 
 import com.android.build.api.dsl.CommonExtension
-import com.tier.app.convention.COMPOSE_BOM
-import com.tier.app.convention.COMPOSE_BUNDLE
-import com.tier.app.convention.COMPOSE_COMPILER
-import com.tier.app.convention.COMPOSE_TESTING_BUNDLE
-import com.tier.app.convention.COMPOSE_TESTING_MANIFEST
 import org.gradle.api.Project
 import org.gradle.kotlin.dsl.dependencies
 

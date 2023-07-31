@@ -1,20 +1,20 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("com.stewemetal.calibrex.android.application")
-    id("com.stewemetal.calibrex.android.application.compose")
-    id("com.stewemetal.calibrex.android.application.koin.annotations")
+    id("com.stewemetal.takehometemplate.android.application")
+    id("com.stewemetal.takehometemplate.android.application.compose")
+    id("com.stewemetal.takehometemplate.android.application.koin.annotations")
 }
 
 android {
-    namespace = "com.stewemetal.calibrex"
+    namespace = "com.stewemetal.takehometemplate"
     compileSdk = Integer.parseInt(libs.versions.android.compile.sdk.get())
 
     defaultConfig {
-        applicationId = "com.stewemetal.calibrex"
+        applicationId = "com.stewemetal.takehometemplate"
         versionCode = 1
         versionName = "1.0"
         multiDexEnabled = true
-        resValue("string", "app_name", "CalibreX")
+        resValue("string", "app_name", "TakeHomeTemplate")
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {

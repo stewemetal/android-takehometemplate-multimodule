@@ -1,9 +1,6 @@
-package com.stewemetal.convention
+package com.stewemetal.convention.configuration
 
 import com.android.build.api.dsl.CommonExtension
-import com.tier.app.convention.ANDROID_COMPILE_SDK_VERSION
-import com.tier.app.convention.ANDROID_MIN_SDK_VERSION
-import com.tier.app.convention.JVM_TARGET
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
@@ -61,7 +58,7 @@ internal fun Project.configureKotlinAndroid(
             jvmTarget = JVM_TARGET
         }
 
-        packagingOptions {
+        packaging {
             resources {
                 excludes.apply {
                     add("META-INF/*")
