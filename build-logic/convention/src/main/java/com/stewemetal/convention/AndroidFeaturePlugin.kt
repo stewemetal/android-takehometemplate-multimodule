@@ -8,7 +8,6 @@ import org.gradle.kotlin.dsl.kotlin
 class AndroidFeaturePlugin : Plugin<Project> {
     override fun apply(target: Project) {
         with(target) {
-
             with(pluginManager) {
                 apply("com.stewemetal.takehometemplate.android.library")
                 apply("com.stewemetal.takehometemplate.android.library.compose")

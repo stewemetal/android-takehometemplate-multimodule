@@ -1,4 +1,3 @@
-
 import com.android.build.api.dsl.LibraryExtension
 import com.stewemetal.convention.configuration.ANDROID_TARGET_SDK_VERSION
 import com.stewemetal.convention.configuration.configureKotlinAndroid
@@ -12,7 +11,7 @@ import org.gradle.kotlin.dsl.kotlin
 
 class AndroidLibraryPlugin : Plugin<Project> {
     override fun apply(target: Project) {
-        with(target){
+        with(target) {
             with(pluginManager) {
                 apply("com.android.library")
                 apply("org.jetbrains.kotlin.android")

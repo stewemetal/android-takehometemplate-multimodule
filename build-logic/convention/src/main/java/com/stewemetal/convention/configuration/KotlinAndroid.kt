@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 package com.stewemetal.convention.configuration
 
 import com.android.build.api.dsl.CommonExtension
@@ -31,8 +33,6 @@ internal fun Project.configureKotlinAndroid(
             targetCompatibility = JavaVersion.VERSION_11
 //            isCoreLibraryDesugaringEnabled = true
         }
-
-
 
         testOptions {
             execution = "ANDROIDX_TEST_ORCHESTRATOR"
