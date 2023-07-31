@@ -24,7 +24,7 @@ allprojects {
 
     detekt {
         config.setFrom(
-            "$rootDir/build-config/detekt-config.yml",
+            "${project.rootDir}/build-config/detekt-config.yml",
         )
         source.setFrom(
             "src/main/java",
