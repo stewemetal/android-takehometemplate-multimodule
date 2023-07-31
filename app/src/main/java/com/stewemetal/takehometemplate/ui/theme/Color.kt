@@ -1,4 +1,4 @@
-package com.stewemetal.calibrex.ui.theme
+package com.stewemetal.takehometemplate.ui.theme
 
 import androidx.compose.ui.graphics.Color
 

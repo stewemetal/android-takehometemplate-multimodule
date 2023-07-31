@@ -1,8 +1,8 @@
 @Suppress("DSL_SCOPE_VIOLATION") // TODO: Remove once KTIJ-19369 is fixed
 plugins {
-    id("com.stewemetal.calibrex.android.base.library")
-    id("com.stewemetal.calibrex.android.library.compose")
-    id("com.stewemetal.calibrex.android.library.koin.annotations")
+    id("com.stewemetal.takehometemplate.android.base.library")
+    id("com.stewemetal.takehometemplate.android.library.compose")
+    id("com.stewemetal.takehometemplate.android.library.koin.annotations")
     alias(libs.plugins.com.google.devtools.ksp)
 }
 

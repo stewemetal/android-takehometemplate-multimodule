@@ -1,6 +1,6 @@
-package com.stewemetal.shell
+package com.stewemetal.takehometemplate
 
-import junit.framework.TestCase.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**

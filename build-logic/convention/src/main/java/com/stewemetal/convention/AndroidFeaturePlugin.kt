@@ -10,8 +10,8 @@ class AndroidFeaturePlugin : Plugin<Project> {
         with(target) {
 
             with(pluginManager) {
-                apply("com.stewemetal.calibrex.android.library")
-                apply("com.stewemetal.calibrex.android.library.compose")
+                apply("com.stewemetal.takehometemplate.android.library")
+                apply("com.stewemetal.takehometemplate.android.library.compose")
             }
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")

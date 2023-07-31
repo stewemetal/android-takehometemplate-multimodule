@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 pluginManagement {
     includeBuild("build-logic")
     repositories {
@@ -14,6 +16,6 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "CalibreX"
+rootProject.name = "TakeHomeTemplate"
 include(":app")
 include(":shell")

@@ -1,6 +1,6 @@
-package com.stewemetal.calibrex
+package com.stewemetal.takehometemplate.shell
 
-import org.junit.Assert.assertEquals
+import junit.framework.TestCase.assertEquals
 import org.junit.Test
 
 /**

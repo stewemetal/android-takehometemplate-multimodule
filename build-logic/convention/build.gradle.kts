@@ -23,35 +23,35 @@ dependencies {
 gradlePlugin {
     plugins {
         register("androidApplication") {
-            id = "com.stewemetal.calibrex.android.application"
+            id = "com.stewemetal.takehometemplate.android.application"
             implementationClass = "AndroidApplicationPlugin"
         }
         register("androidFeature") {
-            id = "com.stewemetal.calibrex.android.feature"
+            id = "com.stewemetal.takehometemplate.android.feature"
             implementationClass = "AndroidFeaturePlugin"
         }
         register("androidApplicationCompose") {
-            id = "com.stewemetal.calibrex.android.application.compose"
+            id = "com.stewemetal.takehometemplate.android.application.compose"
             implementationClass = "AndroidApplicationComposePlugin"
         }
         register("androidBaseLibrary") {
-            id = "com.stewemetal.calibrex.android.base.library"
+            id = "com.stewemetal.takehometemplate.android.base.library"
             implementationClass = "AndroidBaseLibraryPlugin"
         }
         register("androidLibrary") {
-            id = "com.stewemetal.calibrex.android.library"
+            id = "com.stewemetal.takehometemplate.android.library"
             implementationClass = "AndroidLibraryPlugin"
         }
         register("androidLibraryCompose") {
-            id = "com.stewemetal.calibrex.android.library.compose"
+            id = "com.stewemetal.takehometemplate.android.library.compose"
             implementationClass = "AndroidLibraryComposePlugin"
         }
         register("androidLibraryKoinAnnotation") {
-            id = "com.stewemetal.calibrex.android.library.koin.annotations"
+            id = "com.stewemetal.takehometemplate.android.library.koin.annotations"
             implementationClass = "AndroidLibraryKoinAnnotationPlugin"
         }
         register("androidApplicationKoinAnnotation") {
-            id = "com.stewemetal.calibrex.android.application.koin.annotations"
+            id = "com.stewemetal.takehometemplate.android.application.koin.annotations"
             implementationClass = "AndroidApplicationKoinAnnotationPlugin"
         }
     }
