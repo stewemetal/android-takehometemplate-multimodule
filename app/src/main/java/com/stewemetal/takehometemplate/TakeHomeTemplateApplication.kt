@@ -2,6 +2,7 @@ package com.stewemetal.takehometemplate
 
 import android.app.Application
 import com.stewemetal.takehometemplate.shell.ShellModule
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.ksp.generated.module
 
@@ -10,7 +11,8 @@ class TakeHomeTemplateApplication : Application() {
     override fun onCreate() {
         super.onCreate()
 
-        startKoin {
+        startKoin{
+            androidContext(this@TakeHomeTemplateApplication)
             modules(
                 ShellModule().module,
             )

@@ -1,6 +1,10 @@
 package com.stewemetal.takehometemplate.shell
 
+import android.content.Context
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.squareup.moshi.Moshi
+import com.stewemetal.takehometemplate.shell.database.TakeHomeTemplateDatabase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.core.annotation.ComponentScan
@@ -47,5 +51,17 @@ class ShellModule {
             .baseUrl("https://takehometemplate.com")
             .addConverterFactory(MoshiConverterFactory.create(moshi))
             .client(httpClient)
+            .build()
+
+    @Single
+    fun database(
+        context: Context,
+    ): RoomDatabase =
+        Room
+            .databaseBuilder(
+                context = context,
+                klass = TakeHomeTemplateDatabase::class.java,
+                name = "app-db",
+            )
             .build()
 }

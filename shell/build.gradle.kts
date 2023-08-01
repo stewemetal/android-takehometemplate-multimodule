@@ -42,6 +42,12 @@ dependencies {
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
     ksp(libs.com.squareup.moshi.kotlin.codegen)
 
+    implementation(libs.bundles.room)
+    annotationProcessor(libs.androidx.room.compiler)
+    ksp(libs.androidx.room.compiler)
+
+    testImplementation(libs.androidx.room.testing)
+
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
 }
