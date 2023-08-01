@@ -40,6 +40,7 @@ dependencies {
     implementation(libs.bundles.moshi)
     implementation(libs.com.squareup.okhttp3.okhttp)
     implementation(libs.com.squareup.okhttp3.logging.interceptor)
+    implementation(libs.androidx.material)
     ksp(libs.com.squareup.moshi.kotlin.codegen)
 
     implementation(libs.bundles.room)
