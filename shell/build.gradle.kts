@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = "com.stewemetal.shell"
+    namespace = "com.stewemetal.takehometemplate.shell"
 
     buildFeatures {
         buildConfig = true
@@ -31,11 +31,17 @@ android {
 }
 
 dependencies {
-
     implementation(libs.core.ktx)
     implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.material)
-    testImplementation(libs.junit)
+
+    api(libs.io.insert.koin.android)
+
+    implementation(libs.bundles.retrofit)
+    implementation(libs.bundles.moshi)
+    implementation(libs.com.squareup.okhttp3.okhttp)
+    implementation(libs.com.squareup.okhttp3.logging.interceptor)
+    ksp(libs.com.squareup.moshi.kotlin.codegen)
+
     androidTestImplementation(libs.androidx.test.ext.junit)
     androidTestImplementation(libs.androidx.test.espresso.core)
 }
