@@ -24,6 +24,7 @@ com-squareup-retrofit = "2.9.0"
 com-squareup-moshi = "1.14.0"
 com-squareup-okhttp3 = "4.11.0"
 androidx-room = "2.5.2"
+io-kotest = "5.6.2"
 
 [libraries]
 org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
@@ -63,6 +64,9 @@ androidx-room-runtime = { group = "androidx.room", name = "room-runtime", versio
 androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
 androidx-room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "androidx-room" }
 androidx-room-testing = { group = "androidx.room", name = "room-testing", version.ref = "androidx-room" }
+io-kotest-runner-junit5 = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "io-kotest" }
+io-kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "io-kotest" }
+io-kotest-property = { group = "io.kotest", name = "kotest-property", version.ref = "io-kotest" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -77,4 +81,5 @@ compose-testing = ["androidx-compose-ui-test-manifest", "androidx-compose-ui-tes
 retrofit = ["com-squareup-retrofit", "com-squareup-retrofit-moshi"]
 moshi = ["com-squareup-moshi", "com-squareup-moshi-adapters"]
 room = ["androidx-room-runtime", "androidx-room-ktx"]
+kotest = ["io-kotest-runner-junit5", "io-kotest-assertions-core", "io-kotest-property"]
 

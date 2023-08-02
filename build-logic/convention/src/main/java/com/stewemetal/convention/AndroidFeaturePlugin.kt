@@ -18,6 +18,7 @@ class AndroidFeaturePlugin : Plugin<Project> {
             dependencies {
                 add("implementation", project(":shell"))
 
+                add("testImplementation", libs.findBundle("kotest").get())
                 add("testImplementation", kotlin("test"))
                 add("testImplementation", libs.findLibrary("junit").get())
                 add("testImplementation", libs.findLibrary("io.insert.koin.test").get())

@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 import com.android.build.api.dsl.LibraryExtension
 import com.stewemetal.convention.configuration.ANDROID_TARGET_SDK_VERSION
 import com.stewemetal.convention.configuration.configureKotlinAndroid
@@ -20,11 +22,17 @@ class AndroidBaseLibraryPlugin : Plugin<Project> {
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
                 defaultConfig.targetSdk = ANDROID_TARGET_SDK_VERSION
+                testOptions {
+                    unitTests.all {
+                        it.useJUnitPlatform()
+                    }
+                }
             }
 
             val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
 
             dependencies {
+                add("testImplementation", libs.findBundle("kotest").get())
                 add("testImplementation", kotlin("test"))
                 add("testImplementation", libs.findLibrary("junit").get())
             }

@@ -27,6 +27,7 @@ class AndroidLibraryPlugin : Plugin<Project> {
             dependencies {
                 add("implementation", project(":shell"))
 
+                add("testImplementation", libs.findBundle("kotest").get())
                 add("testImplementation", kotlin("test"))
                 add("testImplementation", libs.findLibrary("junit").get())
             }

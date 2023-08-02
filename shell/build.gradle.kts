@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     id("com.stewemetal.takehometemplate.android.base.library")
     id("com.stewemetal.takehometemplate.android.library.compose")
