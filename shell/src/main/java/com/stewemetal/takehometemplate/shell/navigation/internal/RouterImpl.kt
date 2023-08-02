@@ -24,6 +24,7 @@ import com.stewemetal.takehometemplate.shell.navigation.model.ForwardBackTransit
 import com.stewemetal.takehometemplate.shell.navigation.model.LaunchScreenFlags
 import com.stewemetal.takehometemplate.shell.navigation.model.ScreenRoute
 
+@Suppress("TooManyFunctions")
 internal class RouterImpl(
     private val navigator: Navigator,
     private var globalRouterResolver: GlobalRouteResolver,
