@@ -25,6 +25,7 @@ com-squareup-moshi = "1.14.0"
 com-squareup-okhttp3 = "4.11.0"
 androidx-room = "2.5.2"
 io-kotest = "5.6.2"
+com-jakewharton-timber = "5.0.1"
 
 [libraries]
 org-jetbrains-kotlin-gradle-plugin = { module = "org.jetbrains.kotlin:kotlin-gradle-plugin", version.ref = "kotlinGradlePlugin" }
@@ -67,6 +68,7 @@ androidx-room-testing = { group = "androidx.room", name = "room-testing", versio
 io-kotest-runner-junit5 = { group = "io.kotest", name = "kotest-runner-junit5", version.ref = "io-kotest" }
 io-kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "io-kotest" }
 io-kotest-property = { group = "io.kotest", name = "kotest-property", version.ref = "io-kotest" }
+com-jakewharton-timber = { group = "com.jakewharton.timber", name = "timber", version.ref = "com-jakewharton-timber" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

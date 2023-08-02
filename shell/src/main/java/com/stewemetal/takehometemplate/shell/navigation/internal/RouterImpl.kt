@@ -23,6 +23,7 @@ import com.stewemetal.takehometemplate.shell.navigation.model.ExternalApp
 import com.stewemetal.takehometemplate.shell.navigation.model.ForwardBackTransitions
 import com.stewemetal.takehometemplate.shell.navigation.model.LaunchScreenFlags
 import com.stewemetal.takehometemplate.shell.navigation.model.ScreenRoute
+import timber.log.Timber
 
 @Suppress("TooManyFunctions")
 internal class RouterImpl(
@@ -152,7 +153,7 @@ internal class RouterImpl(
                                     Current activity: ${source.javaClass}
                                     Activity wrapper: $activityWrapper
                             """.trimIndent()
-//                            Timber.w(message)
+                            Timber.w(message)
                             nextBackTransition = null
                             currentActivityWrapper = null
                         }
