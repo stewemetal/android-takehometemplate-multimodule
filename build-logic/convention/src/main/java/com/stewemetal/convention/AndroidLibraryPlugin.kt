@@ -30,6 +30,8 @@ class AndroidLibraryPlugin : Plugin<Project> {
                 add("testImplementation", libs.findBundle("kotest").get())
                 add("testImplementation", kotlin("test"))
                 add("testImplementation", libs.findLibrary("junit").get())
+
+                add("androidTestUtil", libs.findLibrary("androidx.test.orchestrator").get())
             }
         }
     }

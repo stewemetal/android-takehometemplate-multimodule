@@ -22,6 +22,7 @@ internal fun Project.configureKotlinAndroid(
 
         defaultConfig {
             minSdk = ANDROID_MIN_SDK_VERSION
+            testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             testInstrumentationRunnerArguments["clearPackageData"] = "true"
             vectorDrawables {
                 useSupportLibrary = true

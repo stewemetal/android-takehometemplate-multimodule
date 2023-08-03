@@ -22,6 +22,8 @@ class AndroidFeaturePlugin : Plugin<Project> {
                 add("testImplementation", kotlin("test"))
                 add("testImplementation", libs.findLibrary("junit").get())
                 add("testImplementation", libs.findLibrary("io.insert.koin.test").get())
+
+                add("androidTestUtil", libs.findLibrary("androidx.test.orchestrator").get())
             }
         }
     }
