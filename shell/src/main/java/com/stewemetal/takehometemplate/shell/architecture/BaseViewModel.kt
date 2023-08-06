@@ -1,0 +1,50 @@
+package com.stewemetal.takehometemplate.shell.architecture
+
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.getAndUpdate
+import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
+
+@Suppress("Unused", "MemberVisibilityCanBePrivate")
+abstract class BaseViewModel<ViewEvent : Any, State : Any>(
+    initialState: State,
+) : ViewModel() {
+
+    private val _state = MutableStateFlow(initialState)
+    val state =
+        _state
+            .stateIn(
+                scope = viewModelScope,
+                initialValue = initialState,
+                started = SharingStarted.Lazily,
+            )
+
+
+    private val viewEvent = MutableSharedFlow<ViewEvent>()
+
+    init {
+        viewModelScope.launch {
+            viewEvent.collect { event ->
+                onViewEvent(event)
+            }
+        }
+    }
+
+    fun triggerViewEvent(event: ViewEvent) {
+        viewModelScope.launch {
+            viewEvent.emit(event)
+        }
+    }
+
+    protected fun emitNewState(transformState: (State) -> State) {
+        _state.getAndUpdate { oldState ->
+            transformState(oldState)
+        }
+    }
+
+    abstract fun onViewEvent(event: ViewEvent)
+}
