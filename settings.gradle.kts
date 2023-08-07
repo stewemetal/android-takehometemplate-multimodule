@@ -20,4 +20,5 @@ rootProject.name = "TakeHomeTemplate"
 include(":app")
 include(":shell")
 include(":library:design")
-include(":feature:login")
+include(":feature:login:contract")
+include(":feature:login:impl")

@@ -4,9 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.getAndUpdate
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
 @Suppress("Unused", "MemberVisibilityCanBePrivate")
@@ -15,14 +14,7 @@ abstract class BaseViewModel<ViewEvent : Any, State : Any>(
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(initialState)
-    val state =
-        _state
-            .stateIn(
-                scope = viewModelScope,
-                initialValue = initialState,
-                started = SharingStarted.Lazily,
-            )
-
+    val state = _state.asStateFlow()
 
     private val viewEvent = MutableSharedFlow<ViewEvent>()
 
@@ -46,5 +38,5 @@ abstract class BaseViewModel<ViewEvent : Any, State : Any>(
         }
     }
 
-    abstract fun onViewEvent(event: ViewEvent)
+    protected abstract fun onViewEvent(event: ViewEvent)
 }
