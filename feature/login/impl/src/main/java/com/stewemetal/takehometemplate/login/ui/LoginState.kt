@@ -1,4 +1,4 @@
-package com.stewemetal.takehometemplate.login
+package com.stewemetal.takehometemplate.login.ui
 
 data class LoginState(
     val isLoading: Boolean = false,

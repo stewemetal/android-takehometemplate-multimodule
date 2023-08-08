@@ -39,6 +39,9 @@ android {
 dependencies {
     implementation(project(":shell"))
 
+    implementation(project(":feature:login:contract"))
+    implementation(project(":feature:login:impl"))
+
     implementation(project(":library:design"))
 
     implementation(libs.core.ktx)
@@ -47,6 +50,7 @@ dependencies {
     implementation(libs.androidx.compose.material3)
 
     implementation(platform(libs.androidx.compose.bom))
+    implementation(libs.io.insert.koin.androidx.compose)
 
     implementation(libs.com.jakewharton.timber)
 

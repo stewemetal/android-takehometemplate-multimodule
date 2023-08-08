@@ -1,6 +1,7 @@
 package com.stewemetal.takehometemplate
 
 import android.app.Application
+import com.stewemetal.takehometemplate.login.LoginModule
 import com.stewemetal.takehometemplate.shell.BuildConfig
 import com.stewemetal.takehometemplate.shell.ShellModule
 import com.stewemetal.takehometemplate.shell.navigation.NavigationModule
@@ -9,7 +10,6 @@ import org.koin.core.context.startKoin
 import org.koin.ksp.generated.module
 import timber.log.Timber.DebugTree
 import timber.log.Timber.Forest.plant
-
 
 class TakeHomeTemplateApplication : Application() {
 
@@ -26,6 +26,7 @@ class TakeHomeTemplateApplication : Application() {
                 AppModule().module,
                 ShellModule().module,
                 NavigationModule().module,
+                LoginModule().module,
             )
         }
     }

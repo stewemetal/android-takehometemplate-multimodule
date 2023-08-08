@@ -1,4 +1,4 @@
-package com.stewemetal.takehometemplate.login
+package com.stewemetal.takehometemplate.login.ui
 
 sealed interface LoginViewEvent {
     data object LoginClicked : LoginViewEvent

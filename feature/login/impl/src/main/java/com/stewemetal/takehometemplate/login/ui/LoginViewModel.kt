@@ -1,8 +1,8 @@
-package com.stewemetal.takehometemplate.login
+package com.stewemetal.takehometemplate.login.ui
 
-import com.stewemetal.takehometemplate.login.LoginViewEvent.LoginClicked
-import com.stewemetal.takehometemplate.login.LoginViewEvent.PasswordTextUpdate
-import com.stewemetal.takehometemplate.login.LoginViewEvent.UserTextUpdate
+import com.stewemetal.takehometemplate.login.ui.LoginViewEvent.LoginClicked
+import com.stewemetal.takehometemplate.login.ui.LoginViewEvent.PasswordTextUpdate
+import com.stewemetal.takehometemplate.login.ui.LoginViewEvent.UserTextUpdate
 import com.stewemetal.takehometemplate.shell.architecture.BaseViewModel
 import org.koin.android.annotation.KoinViewModel
 
