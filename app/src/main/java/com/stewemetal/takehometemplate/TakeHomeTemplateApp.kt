@@ -7,6 +7,8 @@ import androidx.navigation.compose.rememberNavController
 import com.stewemetal.takehometemplate.home.contract.HomeNavGraphFactory
 import com.stewemetal.takehometemplate.home.contract.HomeRoute
 import com.stewemetal.takehometemplate.home.contract.navigateToHome
+import com.stewemetal.takehometemplate.itemdetails.contract.ItemDetailsNavGraphFactory
+import com.stewemetal.takehometemplate.itemdetails.contract.navigateToItemDetails
 import com.stewemetal.takehometemplate.login.contract.LoginNavGraphFactory
 import com.stewemetal.takehometemplate.login.contract.LoginRoute
 import org.koin.compose.koinInject
@@ -16,6 +18,7 @@ fun TakeHomeTemplateApp(
     modifier: Modifier = Modifier,
     loginNavGraphFactory: LoginNavGraphFactory = koinInject(),
     homeNavGraphFactory: HomeNavGraphFactory = koinInject(),
+    itemDetailsNavGraphFactory: ItemDetailsNavGraphFactory = koinInject(),
 ) {
     val navController = rememberNavController()
     NavHost(
@@ -40,7 +43,16 @@ fun TakeHomeTemplateApp(
             onNavigateBack = {
                 navController.navigateUp()
             },
-            onNavigateToDetailsScreen = {},
+            onNavigateToDetailsScreen = { itemId ->
+                navController.navigateToItemDetails(itemId)
+            },
+        )
+
+        itemDetailsNavGraphFactory.buildNavGraph(
+            builder = this,
+            onNavigateBack = {
+                navController.navigateUp()
+            },
         )
     }
 }

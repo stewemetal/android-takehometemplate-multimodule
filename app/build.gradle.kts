@@ -43,6 +43,8 @@ dependencies {
     implementation(project(":feature:login:impl"))
     implementation(project(":feature:home:contract"))
     implementation(project(":feature:home:impl"))
+    implementation(project(":feature:item-details:contract"))
+    implementation(project(":feature:item-details:impl"))
 
     implementation(project(":library:design"))
 

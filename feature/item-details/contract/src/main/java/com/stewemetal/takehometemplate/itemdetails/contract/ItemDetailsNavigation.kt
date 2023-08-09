@@ -1,23 +1,24 @@
-package com.stewemetal.takehometemplate.home.contract
+package com.stewemetal.takehometemplate.itemdetails.contract
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptionsBuilder
 import com.stewemetal.takehometemplate.shell.domain.ItemId
 
-const val HomeRoute = "home"
+const val ItemDetailsRoute = "item_details"
+const val ItemIdArg = "itemId"
 
-interface HomeNavGraphFactory {
+interface ItemDetailsNavGraphFactory {
 
     fun buildNavGraph(
         builder: NavGraphBuilder,
         onNavigateBack: () -> Unit,
-        onNavigateToDetailsScreen: (ItemId) -> Unit,
     )
 }
 
-fun NavController.navigateToHome(
+fun NavController.navigateToItemDetails(
+    itemId: ItemId,
     navOptionsBuilder: NavOptionsBuilder.() -> Unit = {},
 ) {
-    this.navigate(HomeRoute, navOptionsBuilder)
+    this.navigate("$ItemDetailsRoute/${itemId.value}", navOptionsBuilder)
 }

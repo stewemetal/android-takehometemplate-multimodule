@@ -7,13 +7,14 @@ import com.stewemetal.takehometemplate.home.contract.HomeNavGraphFactory
 import com.stewemetal.takehometemplate.home.contract.HomeRoute
 import com.stewemetal.takehometemplate.home.ui.HomeScreen
 import com.stewemetal.takehometemplate.home.ui.HomeViewModel
+import com.stewemetal.takehometemplate.shell.domain.ItemId
 import org.koin.androidx.compose.koinViewModel
 
 internal class HomeNavGraphFactoryImpl : HomeNavGraphFactory {
     override fun buildNavGraph(
         builder: NavGraphBuilder,
         onNavigateBack: () -> Unit,
-        onNavigateToDetailsScreen: (String) -> Unit,
+        onNavigateToDetailsScreen: (ItemId) -> Unit,
     ) {
         builder.composable(HomeRoute) {
             val viewModel: HomeViewModel = koinViewModel()

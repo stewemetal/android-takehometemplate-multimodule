@@ -1,6 +1,6 @@
 package com.stewemetal.takehometemplate.home.ui
 
-import com.stewemetal.takehometemplate.home.model.Item
+import com.stewemetal.takehometemplate.shell.domain.Item
 
 data class HomeState(
     val isLoading: Boolean = true,
