@@ -2,7 +2,7 @@ package com.stewemetal.takehometemplate.login.contract
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
-import androidx.navigation.NavOptions
+import androidx.navigation.NavOptionsBuilder
 
 const val LoginRoute = "login"
 
@@ -13,10 +13,8 @@ interface LoginNavGraphFactory {
     )
 }
 
-fun NavController.navigateToLogin(navOptions: NavOptions? = null) {
-    this.navigate(LoginRoute) {
-        popUpTo(LoginRoute) {
-            inclusive = true
-        }
-    }
+fun NavController.navigateToLogin(
+    navOptionsBuilder: NavOptionsBuilder.() -> Unit = { },
+) {
+    this.navigate(LoginRoute, navOptionsBuilder)
 }
