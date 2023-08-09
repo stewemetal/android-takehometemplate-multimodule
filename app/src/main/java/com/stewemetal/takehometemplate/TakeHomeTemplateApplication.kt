@@ -1,6 +1,7 @@
 package com.stewemetal.takehometemplate
 
 import android.app.Application
+import com.stewemetal.takehometemplate.home.HomeModule
 import com.stewemetal.takehometemplate.login.LoginModule
 import com.stewemetal.takehometemplate.shell.BuildConfig
 import com.stewemetal.takehometemplate.shell.ShellModule
@@ -27,6 +28,7 @@ class TakeHomeTemplateApplication : Application() {
                 ShellModule().module,
                 NavigationModule().module,
                 LoginModule().module,
+                HomeModule().module,
             )
         }
     }

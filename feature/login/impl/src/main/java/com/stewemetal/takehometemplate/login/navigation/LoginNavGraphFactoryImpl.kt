@@ -3,18 +3,18 @@ package com.stewemetal.takehometemplate.login.navigation
 import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.stewemetal.takehometemplate.login.ui.LoginViewEvent.PasswordTextUpdate
-import com.stewemetal.takehometemplate.login.ui.LoginViewEvent.UserTextUpdate
-import com.stewemetal.takehometemplate.login.ui.LoginViewModel
 import com.stewemetal.takehometemplate.login.contract.LoginNavGraphFactory
 import com.stewemetal.takehometemplate.login.contract.LoginRoute
 import com.stewemetal.takehometemplate.login.ui.LoginScreen
+import com.stewemetal.takehometemplate.login.ui.LoginViewEvent.PasswordTextUpdate
+import com.stewemetal.takehometemplate.login.ui.LoginViewEvent.UserTextUpdate
+import com.stewemetal.takehometemplate.login.ui.LoginViewModel
 import org.koin.androidx.compose.koinViewModel
 
 internal class LoginNavGraphFactoryImpl : LoginNavGraphFactory {
     override fun buildNavGraph(
         builder: NavGraphBuilder,
-        onNavigateToMainScreen: () -> Unit,
+        onNavigateToHomeScreen: () -> Unit,
     ) {
         builder.composable(LoginRoute) {
             val viewModel: LoginViewModel = koinViewModel()
@@ -28,7 +28,7 @@ internal class LoginNavGraphFactoryImpl : LoginNavGraphFactory {
                 onPasswordChanged = {
                     viewModel.triggerViewEvent(PasswordTextUpdate(it))
                 },
-                onLoginClick = onNavigateToMainScreen,
+                onLoginClick = onNavigateToHomeScreen,
             )
         }
     }

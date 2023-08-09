@@ -11,7 +11,6 @@ plugins {
 }
 
 allprojects {
-
     apply(plugin = rootProject.project.libs.plugins.io.gitlab.arturbosch.detekt.get().pluginId)
 
     dependencies {

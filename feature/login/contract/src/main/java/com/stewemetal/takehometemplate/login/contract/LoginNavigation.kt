@@ -9,10 +9,14 @@ const val LoginRoute = "login"
 interface LoginNavGraphFactory {
     fun buildNavGraph(
         builder: NavGraphBuilder,
-        onNavigateToMainScreen: () -> Unit,
+        onNavigateToHomeScreen: () -> Unit,
     )
 }
 
 fun NavController.navigateToLogin(navOptions: NavOptions? = null) {
-    this.navigate(LoginRoute, navOptions)
+    this.navigate(LoginRoute) {
+        popUpTo(LoginRoute) {
+            inclusive = true
+        }
+    }
 }

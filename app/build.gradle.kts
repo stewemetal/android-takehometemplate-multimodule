@@ -41,6 +41,8 @@ dependencies {
 
     implementation(project(":feature:login:contract"))
     implementation(project(":feature:login:impl"))
+    implementation(project(":feature:home:contract"))
+    implementation(project(":feature:home:impl"))
 
     implementation(project(":library:design"))
 
