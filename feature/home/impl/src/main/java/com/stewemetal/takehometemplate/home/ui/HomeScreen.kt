@@ -21,11 +21,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.stewemetal.takehometemplate.shell.domain.Item
-import com.stewemetal.takehometemplate.shell.domain.ItemId
+import com.stewemetal.takehometemplate.shell.domain.model.Item
+import com.stewemetal.takehometemplate.shell.domain.model.ItemId
+import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
@@ -74,14 +74,14 @@ fun HomeScreen(
 @Preview
 @Composable
 fun HomeScreenPreview() {
-    var state by remember {
+    val state by remember {
         mutableStateOf(
             HomeState(
                 isLoading = false,
                 items = listOf(
-                    Item(ItemId(1u), "a"),
-                    Item(ItemId(2u), "b"),
-                    Item(ItemId(3u), "c"),
+                    Item(ItemId(UUID.randomUUID().toString()), "a"),
+                    Item(ItemId(UUID.randomUUID().toString()), "b"),
+                    Item(ItemId(UUID.randomUUID().toString()), "c"),
                 ),
             ),
         )

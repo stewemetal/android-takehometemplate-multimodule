@@ -16,8 +16,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import com.stewemetal.takehometemplate.shell.domain.Item
-import com.stewemetal.takehometemplate.shell.domain.ItemId
+import com.stewemetal.takehometemplate.shell.domain.model.Item
+import com.stewemetal.takehometemplate.shell.domain.model.ItemId
+import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
@@ -54,7 +55,7 @@ fun ItemDetailsScreenPreview() {
             ItemDetailsState(
                 isLoading = false,
                 item = Item(
-                    id = ItemId(1u),
+                    id = ItemId(UUID.randomUUID().toString()),
                     value = "Preview"
                 ),
             ),

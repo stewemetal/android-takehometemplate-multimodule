@@ -22,20 +22,20 @@ class LoginViewModel(
 
     private fun onUserInputChange(updatedUser: String) {
         emitNewState {
-            it.copy(name = updatedUser)
+            copy(name = updatedUser)
         }
     }
 
     private fun onPasswordInputChange(updatedPassword: String) {
         emitNewState {
-            it.copy(password = updatedPassword)
+            copy(password = updatedPassword)
         }
     }
 
     private fun login() {
         emitNewState {
             // userUseCase.login(it.name, it.password)
-            it.copy(isLoading = !it.isLoading)
+            copy(isLoading = !isLoading)
         }
     }
 }

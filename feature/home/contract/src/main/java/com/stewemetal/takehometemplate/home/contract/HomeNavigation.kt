@@ -3,7 +3,7 @@ package com.stewemetal.takehometemplate.home.contract
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptionsBuilder
-import com.stewemetal.takehometemplate.shell.domain.ItemId
+import com.stewemetal.takehometemplate.shell.domain.model.ItemId
 
 const val HomeRoute = "home"
 

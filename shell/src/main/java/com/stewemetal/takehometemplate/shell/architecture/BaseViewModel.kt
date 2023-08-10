@@ -32,7 +32,7 @@ abstract class BaseViewModel<ViewEvent : Any, State : Any>(
         }
     }
 
-    protected fun emitNewState(transformState: (State) -> State) {
+    protected fun emitNewState(transformState: State.() -> State) {
         _state.getAndUpdate { oldState ->
             transformState(oldState)
         }

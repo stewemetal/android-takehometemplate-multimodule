@@ -1,23 +1,26 @@
 package com.stewemetal.takehometemplate.home.ui
 
+import androidx.lifecycle.viewModelScope
 import com.stewemetal.takehometemplate.shell.architecture.BaseViewModel
-import com.stewemetal.takehometemplate.shell.domain.Item
-import com.stewemetal.takehometemplate.shell.domain.ItemId
+import com.stewemetal.takehometemplate.shell.domain.GetItemsUseCase
+import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class HomeViewModel : BaseViewModel<HomeViewEvent, HomeState>(
+class HomeViewModel(
+    private val getItemsUseCase: GetItemsUseCase,
+) : BaseViewModel<HomeViewEvent, HomeState>(
     HomeState()
 ) {
     init {
-        emitNewState {
-            HomeState(
-                items = listOf(
-                    Item(ItemId(1u), "a"),
-                    Item(ItemId(1u), "b"),
-                    Item(ItemId(1u), "c"),
+        viewModelScope.launch {
+            val items = getItemsUseCase.getItems()
+            emitNewState {
+                HomeState(
+                    isLoading = false,
+                    items = items,
                 )
-            )
+            }
         }
     }
 
