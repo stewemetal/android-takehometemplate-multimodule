@@ -30,7 +30,7 @@ fun ItemDetailsScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Home")
+                    Text(state.item?.value ?: "")
                 },
                 navigationIcon = {
                     IconButton(onClick = onBackClick) {

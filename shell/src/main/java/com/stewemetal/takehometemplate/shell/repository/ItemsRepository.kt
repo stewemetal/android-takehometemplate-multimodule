@@ -1,4 +1,4 @@
-package com.stewemetal.takehometemplate.shell.domain
+package com.stewemetal.takehometemplate.shell.repository
 
 import com.stewemetal.takehometemplate.shell.domain.model.Item
 import com.stewemetal.takehometemplate.shell.domain.model.ItemId

@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.squareup.moshi.Moshi
+import com.stewemetal.takehometemplate.shell.architecture.DefaultDispatcherProvider
+import com.stewemetal.takehometemplate.shell.architecture.DispatcherProvider
 import com.stewemetal.takehometemplate.shell.database.TakeHomeTemplateDatabase
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -64,4 +66,8 @@ class ShellModule {
                 name = "app-db",
             )
             .build()
+
+    @Single
+    fun dispatcherProvider(): DispatcherProvider =
+        DefaultDispatcherProvider()
 }

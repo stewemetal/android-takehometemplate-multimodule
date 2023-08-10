@@ -2,7 +2,7 @@ package com.stewemetal.takehometemplate.home.ui
 
 import androidx.lifecycle.viewModelScope
 import com.stewemetal.takehometemplate.shell.architecture.BaseViewModel
-import com.stewemetal.takehometemplate.shell.domain.GetItemsUseCase
+import com.stewemetal.takehometemplate.shell.domain.usecase.GetItemsUseCase
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 

@@ -4,8 +4,8 @@ import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.viewModelScope
 import com.stewemetal.takehometemplate.itemdetails.contract.ItemDetailsArgs
 import com.stewemetal.takehometemplate.shell.architecture.BaseViewModel
-import com.stewemetal.takehometemplate.shell.domain.GetItemUseCase
 import com.stewemetal.takehometemplate.shell.domain.model.ItemId
+import com.stewemetal.takehometemplate.shell.domain.usecase.GetItemUseCase
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 
