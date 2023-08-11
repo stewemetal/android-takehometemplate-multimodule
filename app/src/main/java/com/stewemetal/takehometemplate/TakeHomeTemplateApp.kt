@@ -2,7 +2,6 @@ package com.stewemetal.takehometemplate
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
 import com.stewemetal.takehometemplate.home.contract.HomeNavGraphFactory
 import com.stewemetal.takehometemplate.home.contract.HomeRoute
@@ -11,6 +10,7 @@ import com.stewemetal.takehometemplate.itemdetails.contract.ItemDetailsNavGraphF
 import com.stewemetal.takehometemplate.itemdetails.contract.navigateToItemDetails
 import com.stewemetal.takehometemplate.login.contract.LoginNavGraphFactory
 import com.stewemetal.takehometemplate.login.contract.LoginRoute
+import com.stewemetal.takehometemplate.shell.navigation.compose.TakeHomeTemplateNavHost
 import org.koin.compose.koinInject
 
 @Composable
@@ -21,7 +21,7 @@ fun TakeHomeTemplateApp(
     itemDetailsNavGraphFactory: ItemDetailsNavGraphFactory = koinInject(),
 ) {
     val navController = rememberNavController()
-    NavHost(
+    TakeHomeTemplateNavHost(
         navController = navController,
         startDestination = LoginRoute,
         modifier = modifier,
