@@ -7,9 +7,7 @@ import com.stewemetal.takehometemplate.shell.architecture.BaseViewModel
 import org.koin.android.annotation.KoinViewModel
 
 @KoinViewModel
-class LoginViewModel(
-    // val userUseCase: UserUseCase
-) : BaseViewModel<LoginViewEvent, LoginState>(
+class LoginViewModel : BaseViewModel<LoginViewEvent, LoginState>(
     LoginState()
 ) {
     override fun onViewEvent(event: LoginViewEvent) {
@@ -34,7 +32,6 @@ class LoginViewModel(
 
     private fun login() {
         emitNewState {
-            // userUseCase.login(it.name, it.password)
             copy(isLoading = !isLoading)
         }
     }
