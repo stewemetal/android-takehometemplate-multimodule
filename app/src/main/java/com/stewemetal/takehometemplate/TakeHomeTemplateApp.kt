@@ -2,6 +2,9 @@ package com.stewemetal.takehometemplate
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.lifecycle.Lifecycle
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.stewemetal.takehometemplate.home.contract.HomeNavGraphFactory
 import com.stewemetal.takehometemplate.home.contract.HomeRoute
@@ -29,30 +32,50 @@ fun TakeHomeTemplateApp(
         loginNavGraphFactory.buildNavGraph(
             builder = this,
             onNavigateToHomeScreen = {
-                navController.navigateToHome {
-                    popUpTo(navController.graph.startDestinationId) {
-                        inclusive = true
+                navController.doNavigate {
+                    navigateToHome {
+                        popUpTo(navController.graph.startDestinationId) {
+                            inclusive = true
+                        }
                     }
+                    graph.setStartDestination(HomeRoute)
                 }
-                navController.graph.setStartDestination(HomeRoute)
             },
         )
 
         homeNavGraphFactory.buildNavGraph(
             builder = this,
             onNavigateBack = {
-                navController.navigateUp()
+                navController.doNavigate {
+                    navigateUp()
+                }
             },
             onNavigateToDetailsScreen = { itemId ->
-                navController.navigateToItemDetails(itemId)
+                navController.doNavigate {
+                    navigateToItemDetails(itemId)
+                }
             },
         )
 
         itemDetailsNavGraphFactory.buildNavGraph(
             builder = this,
             onNavigateBack = {
-                navController.navigateUp()
+                navController.doNavigate {
+                    navigateUp()
+                }
             },
         )
+    }
+}
+
+private fun NavBackStackEntry.lifecycleIsResumed(): Boolean =
+    this.lifecycle.currentState == Lifecycle.State.RESUMED
+
+private fun NavController.canNavigate(): Boolean =
+    currentBackStackEntry?.lifecycleIsResumed() ?: false
+
+private fun NavController.doNavigate(block: NavController.() -> Unit) {
+    if (canNavigate()) {
+        block()
     }
 }

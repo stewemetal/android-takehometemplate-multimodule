@@ -1,8 +1,18 @@
 package com.stewemetal.takehometemplate.home.ui
 
 import com.stewemetal.takehometemplate.shell.domain.model.Item
+import com.stewemetal.takehometemplate.shell.domain.model.ItemId
 
-data class HomeState(
+internal data class HomeState(
     val isLoading: Boolean = true,
     val items: List<Item> = emptyList(),
+    val navigationEvent: HomeNavigationEvent? = null,
 )
+
+internal sealed interface HomeNavigationEvent {
+    data class NavigateToItemDetails(
+        val itemId: ItemId,
+    ) : HomeNavigationEvent
+
+    data object NavigateBack : HomeNavigationEvent
+}

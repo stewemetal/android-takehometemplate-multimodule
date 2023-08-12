@@ -1,17 +1,24 @@
 package com.stewemetal.takehometemplate.home.ui
 
 import androidx.lifecycle.viewModelScope
+import com.stewemetal.takehometemplate.home.ui.HomeNavigationEvent.NavigateBack
+import com.stewemetal.takehometemplate.home.ui.HomeNavigationEvent.NavigateToItemDetails
+import com.stewemetal.takehometemplate.home.ui.HomeViewEvent.BackClicked
+import com.stewemetal.takehometemplate.home.ui.HomeViewEvent.ItemClicked
+import com.stewemetal.takehometemplate.home.ui.HomeViewEvent.NavigationEventConsumed
 import com.stewemetal.takehometemplate.shell.architecture.BaseViewModel
 import com.stewemetal.takehometemplate.shell.domain.usecase.GetItemsUseCase
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import timber.log.Timber
 
 @KoinViewModel
-class HomeViewModel(
+internal class HomeViewModel(
     private val getItemsUseCase: GetItemsUseCase,
 ) : BaseViewModel<HomeViewEvent, HomeState>(
     HomeState()
 ) {
+
     init {
         viewModelScope.launch {
             val items = getItemsUseCase.getItems()
@@ -25,6 +32,29 @@ class HomeViewModel(
     }
 
     override fun onViewEvent(event: HomeViewEvent) {
-        // TODO
+        Timber.e(">>> HomeVM onViewEvent $event")
+        when (event) {
+            is ItemClicked -> {
+                emitNewState {
+                    copy(navigationEvent = NavigateToItemDetails(event.itemId))
+                }
+            }
+
+            BackClicked -> {
+                emitNewState {
+                    copy(navigationEvent = NavigateBack)
+                }
+            }
+
+            NavigationEventConsumed -> {
+                emitNewState {
+                    copy(navigationEvent = null)
+                }
+            }
+        }
+    }
+
+    fun onNavigationEventConsumed() {
+        triggerViewEvent(NavigationEventConsumed)
     }
 }
