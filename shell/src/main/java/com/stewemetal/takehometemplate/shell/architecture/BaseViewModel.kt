@@ -5,6 +5,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.getAndUpdate
 import kotlinx.coroutines.launch
 
@@ -20,9 +21,11 @@ abstract class BaseViewModel<ViewEvent : Any, State : Any>(
 
     init {
         viewModelScope.launch {
-            viewEvent.collect { event ->
-                onViewEvent(event)
-            }
+            viewEvent
+                .distinctUntilChanged()
+                .collect { event ->
+                    onViewEvent(event)
+                }
         }
     }
 
