@@ -22,8 +22,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":library:design"))
-
     implementation(libs.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.material3)

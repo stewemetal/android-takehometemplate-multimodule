@@ -1,6 +1,6 @@
 package com.stewemetal.takehometemplate.home
 
-import org.junit.Assert.assertEquals
+import org.junit.Assert.assertTrue
 import org.junit.Test
 
 /**
@@ -11,6 +11,8 @@ import org.junit.Test
 class ExampleUnitTest {
     @Test
     fun addition_isCorrect() {
-        assertEquals(4, 2 + 2)
+//        assertEquals(4, 2 + 2)
+        val x = "(?=.+:feature)(.+)(?<=:impl)".toRegex()
+        assertTrue("project ':feature:home:impl'".contains(x))
     }
 }

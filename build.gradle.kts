@@ -8,6 +8,8 @@ plugins {
     alias(libs.plugins.com.google.devtools.ksp) apply false
     alias(libs.plugins.androidLibrary) apply false
     alias(libs.plugins.io.gitlab.arturbosch.detekt)
+
+    id("dependency.checker")
 }
 
 allprojects {
