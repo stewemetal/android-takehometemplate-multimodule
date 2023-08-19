@@ -6,8 +6,8 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.stewemetal.takehometemplate.itemlist.contract.HomeNavGraphFactory
-import com.stewemetal.takehometemplate.itemlist.contract.HomeRoute
+import com.stewemetal.takehometemplate.itemlist.contract.ItemListNavGraphFactory
+import com.stewemetal.takehometemplate.itemlist.contract.ItemListRoute
 import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent
 import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent.NavigateBack
 import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent.NavigateToItemDetails
@@ -18,14 +18,16 @@ import com.stewemetal.takehometemplate.itemlist.ui.HomeViewEvent.ItemClicked
 import com.stewemetal.takehometemplate.itemlist.ui.HomeViewModel
 import com.stewemetal.takehometemplate.shell.domain.model.ItemId
 import org.koin.androidx.compose.koinViewModel
+import org.koin.core.annotation.Singleton
 
-internal class HomeNavGraphFactoryImpl : HomeNavGraphFactory {
+@Singleton
+internal class ItemListNavGraphFactoryImpl : ItemListNavGraphFactory {
     override fun buildNavGraph(
         navGraphBuilder: NavGraphBuilder,
         onNavigateBack: () -> Unit,
         onNavigateToDetailsScreen: (ItemId) -> Unit,
     ) {
-        navGraphBuilder.composable(HomeRoute) {
+        navGraphBuilder.composable(ItemListRoute) {
             val viewModel: HomeViewModel = koinViewModel()
             val state by viewModel.state.collectAsState()
 

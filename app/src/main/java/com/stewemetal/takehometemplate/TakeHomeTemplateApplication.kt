@@ -2,11 +2,10 @@ package com.stewemetal.takehometemplate
 
 import android.app.Application
 import com.stewemetal.takehometemplate.itemdetails.ItemDetailsModule
-import com.stewemetal.takehometemplate.itemlist.HomeModule
+import com.stewemetal.takehometemplate.itemlist.ItemListModule
 import com.stewemetal.takehometemplate.login.LoginModule
 import com.stewemetal.takehometemplate.shell.BuildConfig
 import com.stewemetal.takehometemplate.shell.ShellModule
-import com.stewemetal.takehometemplate.shell.navigation.NavigationModule
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.startKoin
 import org.koin.ksp.generated.module
@@ -25,11 +24,9 @@ class TakeHomeTemplateApplication : Application() {
         startKoin {
             androidContext(this@TakeHomeTemplateApplication)
             modules(
-                AppModule().module,
                 ShellModule().module,
-                NavigationModule().module,
                 LoginModule().module,
-                HomeModule().module,
+                ItemListModule().module,
                 ItemDetailsModule().module,
             )
         }

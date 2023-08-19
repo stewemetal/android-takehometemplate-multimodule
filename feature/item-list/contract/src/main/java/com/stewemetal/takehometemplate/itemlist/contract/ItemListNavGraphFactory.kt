@@ -5,9 +5,9 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptionsBuilder
 import com.stewemetal.takehometemplate.shell.domain.model.ItemId
 
-const val HomeRoute = "home"
+const val ItemListRoute = "itemlist"
 
-interface HomeNavGraphFactory {
+interface ItemListNavGraphFactory {
 
     fun buildNavGraph(
         navGraphBuilder: NavGraphBuilder,
@@ -19,5 +19,5 @@ interface HomeNavGraphFactory {
 fun NavController.navigateToHome(
     navOptionsBuilder: NavOptionsBuilder.() -> Unit = {},
 ) {
-    this.navigate(HomeRoute, navOptionsBuilder)
+    this.navigate(ItemListRoute, navOptionsBuilder)
 }

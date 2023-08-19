@@ -8,8 +8,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.stewemetal.takehometemplate.itemdetails.contract.ItemDetailsNavGraphFactory
 import com.stewemetal.takehometemplate.itemdetails.contract.navigateToItemDetails
-import com.stewemetal.takehometemplate.itemlist.contract.HomeNavGraphFactory
-import com.stewemetal.takehometemplate.itemlist.contract.HomeRoute
+import com.stewemetal.takehometemplate.itemlist.contract.ItemListNavGraphFactory
+import com.stewemetal.takehometemplate.itemlist.contract.ItemListRoute
 import com.stewemetal.takehometemplate.itemlist.contract.navigateToHome
 import com.stewemetal.takehometemplate.login.contract.LoginNavGraphFactory
 import com.stewemetal.takehometemplate.login.contract.LoginRoute
@@ -20,7 +20,7 @@ import org.koin.compose.koinInject
 fun TakeHomeTemplateApp(
     modifier: Modifier = Modifier,
     loginNavGraphFactory: LoginNavGraphFactory = koinInject(),
-    homeNavGraphFactory: HomeNavGraphFactory = koinInject(),
+    itemListNavGraphFactory: ItemListNavGraphFactory = koinInject(),
     itemDetailsNavGraphFactory: ItemDetailsNavGraphFactory = koinInject(),
 ) {
     fun NavBackStackEntry.lifecycleIsResumed(): Boolean =
@@ -50,12 +50,12 @@ fun TakeHomeTemplateApp(
                             inclusive = true
                         }
                     }
-                    graph.setStartDestination(HomeRoute)
+                    graph.setStartDestination(ItemListRoute)
                 }
             },
         )
 
-        homeNavGraphFactory.buildNavGraph(
+        itemListNavGraphFactory.buildNavGraph(
             navGraphBuilder = this,
             onNavigateBack = {
                 navController.debouncedNavigation {
