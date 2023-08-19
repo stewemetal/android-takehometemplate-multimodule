@@ -1,4 +1,4 @@
-package com.stewemetal.takehometemplate.home.ui
+package com.stewemetal.takehometemplate.itemlist.ui
 
 import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
@@ -11,7 +11,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.ripple.rememberRipple
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -36,17 +36,17 @@ import java.util.UUID
 internal fun HomeScreen(
     state: HomeState,
     onItemClick: (ItemId) -> Unit,
-    onBackClick: () -> Unit,
+    onAppBarNavigationClick: () -> Unit,
 ) {
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text("Home")
+                    Text("Items")
                 },
                 navigationIcon = {
-                    IconButton(onClick = onBackClick) {
-                        Icon(Icons.Filled.ArrowBack, null)
+                    IconButton(onClick = onAppBarNavigationClick) {
+                        Icon(Icons.Filled.Menu, null)
                     }
                 },
             )
@@ -107,7 +107,7 @@ fun HomeScreenPreview() {
 
     HomeScreen(
         state = state,
-        onBackClick = { },
+        onAppBarNavigationClick = { },
         onItemClick = { },
     )
 }

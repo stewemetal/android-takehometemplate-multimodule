@@ -1,8 +1,8 @@
 package com.stewemetal.takehometemplate
 
 import android.app.Application
-import com.stewemetal.takehometemplate.home.HomeModule
 import com.stewemetal.takehometemplate.itemdetails.ItemDetailsModule
+import com.stewemetal.takehometemplate.itemlist.HomeModule
 import com.stewemetal.takehometemplate.login.LoginModule
 import com.stewemetal.takehometemplate.shell.BuildConfig
 import com.stewemetal.takehometemplate.shell.ShellModule

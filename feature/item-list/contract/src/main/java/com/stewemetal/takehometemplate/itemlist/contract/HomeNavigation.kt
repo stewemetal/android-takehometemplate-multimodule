@@ -1,4 +1,4 @@
-package com.stewemetal.takehometemplate.home.contract
+package com.stewemetal.takehometemplate.itemlist.contract
 
 import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder

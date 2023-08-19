@@ -5,7 +5,7 @@ plugins {
 }
 
 android {
-    namespace = "com.stewemetal.takehometemplate.home.contract"
+    namespace = "com.stewemetal.takehometemplate.itemlist"
 
     buildTypes {
         debug {
@@ -22,10 +22,14 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:item-list:contract"))
+
     implementation(project(":library:design"))
 
     implementation(libs.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.androidx.compose.material3)
     implementation(libs.io.insert.koin.androidx.compose)
+
+    implementation(libs.com.jakewharton.timber)
 }

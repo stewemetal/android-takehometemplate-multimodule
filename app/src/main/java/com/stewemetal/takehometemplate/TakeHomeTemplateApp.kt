@@ -6,11 +6,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavBackStackEntry
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
-import com.stewemetal.takehometemplate.home.contract.HomeNavGraphFactory
-import com.stewemetal.takehometemplate.home.contract.HomeRoute
-import com.stewemetal.takehometemplate.home.contract.navigateToHome
 import com.stewemetal.takehometemplate.itemdetails.contract.ItemDetailsNavGraphFactory
 import com.stewemetal.takehometemplate.itemdetails.contract.navigateToItemDetails
+import com.stewemetal.takehometemplate.itemlist.contract.HomeNavGraphFactory
+import com.stewemetal.takehometemplate.itemlist.contract.HomeRoute
+import com.stewemetal.takehometemplate.itemlist.contract.navigateToHome
 import com.stewemetal.takehometemplate.login.contract.LoginNavGraphFactory
 import com.stewemetal.takehometemplate.login.contract.LoginRoute
 import com.stewemetal.takehometemplate.shell.navigation.compose.TakeHomeTemplateNavHost

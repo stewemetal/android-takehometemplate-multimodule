@@ -1,11 +1,11 @@
-package com.stewemetal.takehometemplate.home.ui
+package com.stewemetal.takehometemplate.itemlist.ui
 
 import androidx.lifecycle.viewModelScope
-import com.stewemetal.takehometemplate.home.ui.HomeNavigationEvent.NavigateBack
-import com.stewemetal.takehometemplate.home.ui.HomeNavigationEvent.NavigateToItemDetails
-import com.stewemetal.takehometemplate.home.ui.HomeViewEvent.BackClicked
-import com.stewemetal.takehometemplate.home.ui.HomeViewEvent.ItemClicked
-import com.stewemetal.takehometemplate.home.ui.HomeViewEvent.NavigationEventConsumed
+import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent.NavigateBack
+import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent.NavigateToItemDetails
+import com.stewemetal.takehometemplate.itemlist.ui.HomeViewEvent.BackClicked
+import com.stewemetal.takehometemplate.itemlist.ui.HomeViewEvent.ItemClicked
+import com.stewemetal.takehometemplate.itemlist.ui.HomeViewEvent.NavigationEventConsumed
 import com.stewemetal.takehometemplate.shell.architecture.BaseViewModel
 import com.stewemetal.takehometemplate.shell.domain.usecase.GetItemsUseCase
 import kotlinx.coroutines.launch

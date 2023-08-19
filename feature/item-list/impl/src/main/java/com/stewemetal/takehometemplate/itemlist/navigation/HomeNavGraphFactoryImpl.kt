@@ -1,4 +1,4 @@
-package com.stewemetal.takehometemplate.home.navigation
+package com.stewemetal.takehometemplate.itemlist.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -6,16 +6,16 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
-import com.stewemetal.takehometemplate.home.contract.HomeNavGraphFactory
-import com.stewemetal.takehometemplate.home.contract.HomeRoute
-import com.stewemetal.takehometemplate.home.ui.HomeNavigationEvent
-import com.stewemetal.takehometemplate.home.ui.HomeNavigationEvent.NavigateBack
-import com.stewemetal.takehometemplate.home.ui.HomeNavigationEvent.NavigateToItemDetails
-import com.stewemetal.takehometemplate.home.ui.HomeScreen
-import com.stewemetal.takehometemplate.home.ui.HomeState
-import com.stewemetal.takehometemplate.home.ui.HomeViewEvent.BackClicked
-import com.stewemetal.takehometemplate.home.ui.HomeViewEvent.ItemClicked
-import com.stewemetal.takehometemplate.home.ui.HomeViewModel
+import com.stewemetal.takehometemplate.itemlist.contract.HomeNavGraphFactory
+import com.stewemetal.takehometemplate.itemlist.contract.HomeRoute
+import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent
+import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent.NavigateBack
+import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent.NavigateToItemDetails
+import com.stewemetal.takehometemplate.itemlist.ui.HomeScreen
+import com.stewemetal.takehometemplate.itemlist.ui.HomeState
+import com.stewemetal.takehometemplate.itemlist.ui.HomeViewEvent.BackClicked
+import com.stewemetal.takehometemplate.itemlist.ui.HomeViewEvent.ItemClicked
+import com.stewemetal.takehometemplate.itemlist.ui.HomeViewModel
 import com.stewemetal.takehometemplate.shell.domain.model.ItemId
 import org.koin.androidx.compose.koinViewModel
 
@@ -45,7 +45,7 @@ internal class HomeNavGraphFactoryImpl : HomeNavGraphFactory {
 
             HomeScreen(
                 state = state,
-                onBackClick = {
+                onAppBarNavigationClick = {
                     viewModel.triggerViewEvent(BackClicked)
                 },
                 onItemClick = {
