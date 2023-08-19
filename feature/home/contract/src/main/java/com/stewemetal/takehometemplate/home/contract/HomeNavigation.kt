@@ -10,7 +10,7 @@ const val HomeRoute = "home"
 interface HomeNavGraphFactory {
 
     fun buildNavGraph(
-        builder: NavGraphBuilder,
+        navGraphBuilder: NavGraphBuilder,
         onNavigateBack: () -> Unit,
         onNavigateToDetailsScreen: (ItemId) -> Unit,
     )

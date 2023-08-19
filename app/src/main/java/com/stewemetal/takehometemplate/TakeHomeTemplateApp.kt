@@ -23,6 +23,18 @@ fun TakeHomeTemplateApp(
     homeNavGraphFactory: HomeNavGraphFactory = koinInject(),
     itemDetailsNavGraphFactory: ItemDetailsNavGraphFactory = koinInject(),
 ) {
+    fun NavBackStackEntry.lifecycleIsResumed(): Boolean =
+        this.lifecycle.currentState == Lifecycle.State.RESUMED
+
+    fun NavController.canNavigate(): Boolean =
+        currentBackStackEntry?.lifecycleIsResumed() ?: false
+
+    fun NavController.debouncedNavigation(block: NavController.() -> Unit) {
+        if (canNavigate()) {
+            block()
+        }
+    }
+
     val navController = rememberNavController()
     TakeHomeTemplateNavHost(
         navController = navController,
@@ -30,9 +42,9 @@ fun TakeHomeTemplateApp(
         modifier = modifier,
     ) {
         loginNavGraphFactory.buildNavGraph(
-            builder = this,
+            navGraphBuilder = this,
             onNavigateToHomeScreen = {
-                navController.doNavigate {
+                navController.debouncedNavigation {
                     navigateToHome {
                         popUpTo(navController.graph.startDestinationId) {
                             inclusive = true
@@ -44,38 +56,26 @@ fun TakeHomeTemplateApp(
         )
 
         homeNavGraphFactory.buildNavGraph(
-            builder = this,
+            navGraphBuilder = this,
             onNavigateBack = {
-                navController.doNavigate {
+                navController.debouncedNavigation {
                     navigateUp()
                 }
             },
             onNavigateToDetailsScreen = { itemId ->
-                navController.doNavigate {
+                navController.debouncedNavigation {
                     navigateToItemDetails(itemId)
                 }
             },
         )
 
         itemDetailsNavGraphFactory.buildNavGraph(
-            builder = this,
+            navGrapBuilder = this,
             onNavigateBack = {
-                navController.doNavigate {
+                navController.debouncedNavigation {
                     navigateUp()
                 }
             },
         )
-    }
-}
-
-private fun NavBackStackEntry.lifecycleIsResumed(): Boolean =
-    this.lifecycle.currentState == Lifecycle.State.RESUMED
-
-private fun NavController.canNavigate(): Boolean =
-    currentBackStackEntry?.lifecycleIsResumed() ?: false
-
-private fun NavController.doNavigate(block: NavController.() -> Unit) {
-    if (canNavigate()) {
-        block()
     }
 }

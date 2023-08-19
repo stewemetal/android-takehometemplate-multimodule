@@ -8,7 +8,7 @@ const val LoginRoute = "login"
 
 interface LoginNavGraphFactory {
     fun buildNavGraph(
-        builder: NavGraphBuilder,
+        navGraphBuilder: NavGraphBuilder,
         onNavigateToHomeScreen: () -> Unit,
     )
 }

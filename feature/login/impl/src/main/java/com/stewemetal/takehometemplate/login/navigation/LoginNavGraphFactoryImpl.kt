@@ -13,10 +13,10 @@ import org.koin.androidx.compose.koinViewModel
 
 internal class LoginNavGraphFactoryImpl : LoginNavGraphFactory {
     override fun buildNavGraph(
-        builder: NavGraphBuilder,
+        navGraphBuilder: NavGraphBuilder,
         onNavigateToHomeScreen: () -> Unit,
     ) {
-        builder.composable(LoginRoute) {
+        navGraphBuilder.composable(LoginRoute) {
             val viewModel: LoginViewModel = koinViewModel()
             val state = viewModel.state.collectAsState()
 

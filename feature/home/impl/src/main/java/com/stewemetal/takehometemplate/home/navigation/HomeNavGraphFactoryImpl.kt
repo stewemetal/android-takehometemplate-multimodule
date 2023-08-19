@@ -21,11 +21,11 @@ import org.koin.androidx.compose.koinViewModel
 
 internal class HomeNavGraphFactoryImpl : HomeNavGraphFactory {
     override fun buildNavGraph(
-        builder: NavGraphBuilder,
+        navGraphBuilder: NavGraphBuilder,
         onNavigateBack: () -> Unit,
         onNavigateToDetailsScreen: (ItemId) -> Unit,
     ) {
-        builder.composable(HomeRoute) {
+        navGraphBuilder.composable(HomeRoute) {
             val viewModel: HomeViewModel = koinViewModel()
             val state by viewModel.state.collectAsState()
 
