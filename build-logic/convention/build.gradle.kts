@@ -2,7 +2,7 @@ plugins {
     `kotlin-dsl`
 }
 
-group = "hu.stewemetal.calibrex.buildlogic"
+group = "hu.stewemetal.takehometemplate.buildlogic"
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
