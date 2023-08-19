@@ -11,11 +11,11 @@ import com.stewemetal.takehometemplate.itemlist.contract.ItemListRoute
 import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent
 import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent.NavigateBack
 import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent.NavigateToItemDetails
-import com.stewemetal.takehometemplate.itemlist.ui.HomeScreen
-import com.stewemetal.takehometemplate.itemlist.ui.HomeState
-import com.stewemetal.takehometemplate.itemlist.ui.HomeViewEvent.BackClicked
-import com.stewemetal.takehometemplate.itemlist.ui.HomeViewEvent.ItemClicked
-import com.stewemetal.takehometemplate.itemlist.ui.HomeViewModel
+import com.stewemetal.takehometemplate.itemlist.ui.ItemListScreen
+import com.stewemetal.takehometemplate.itemlist.ui.ItemListState
+import com.stewemetal.takehometemplate.itemlist.ui.ItemListViewEvent.AppBarNavigationClicked
+import com.stewemetal.takehometemplate.itemlist.ui.ItemListViewEvent.ItemClicked
+import com.stewemetal.takehometemplate.itemlist.ui.ItemListViewModel
 import com.stewemetal.takehometemplate.shell.domain.model.ItemId
 import org.koin.androidx.compose.koinViewModel
 import org.koin.core.annotation.Singleton
@@ -28,7 +28,7 @@ internal class ItemListNavGraphFactoryImpl : ItemListNavGraphFactory {
         onNavigateToDetailsScreen: (ItemId) -> Unit,
     ) {
         navGraphBuilder.composable(ItemListRoute) {
-            val viewModel: HomeViewModel = koinViewModel()
+            val viewModel: ItemListViewModel = koinViewModel()
             val state by viewModel.state.collectAsState()
 
             state.ConsumeNavigationEvent(viewModel) { navigationEvent ->
@@ -45,10 +45,10 @@ internal class ItemListNavGraphFactoryImpl : ItemListNavGraphFactory {
                 }
             }
 
-            HomeScreen(
+            ItemListScreen(
                 state = state,
                 onAppBarNavigationClick = {
-                    viewModel.triggerViewEvent(BackClicked)
+                    viewModel.triggerViewEvent(AppBarNavigationClicked)
                 },
                 onItemClick = {
                     viewModel.triggerViewEvent(ItemClicked(it))
@@ -58,8 +58,8 @@ internal class ItemListNavGraphFactoryImpl : ItemListNavGraphFactory {
     }
 
     @Composable
-    private fun HomeState.ConsumeNavigationEvent(
-        viewModel: HomeViewModel,
+    private fun ItemListState.ConsumeNavigationEvent(
+        viewModel: ItemListViewModel,
         block: (HomeNavigationEvent) -> Unit,
     ) {
         LaunchedEffect(this) {

@@ -33,8 +33,8 @@ import java.util.UUID
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
-internal fun HomeScreen(
-    state: HomeState,
+internal fun ItemListScreen(
+    state: ItemListState,
     onItemClick: (ItemId) -> Unit,
     onAppBarNavigationClick: () -> Unit,
 ) {
@@ -94,7 +94,7 @@ fun ItemListItem(
 fun HomeScreenPreview() {
     val state by remember {
         mutableStateOf(
-            HomeState(
+            ItemListState(
                 isLoading = false,
                 items = listOf(
                     Item(ItemId(UUID.randomUUID().toString()), "a"),
@@ -105,7 +105,7 @@ fun HomeScreenPreview() {
         )
     }
 
-    HomeScreen(
+    ItemListScreen(
         state = state,
         onAppBarNavigationClick = { },
         onItemClick = { },

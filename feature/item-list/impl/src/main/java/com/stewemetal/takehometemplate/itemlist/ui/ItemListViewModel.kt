@@ -3,9 +3,9 @@ package com.stewemetal.takehometemplate.itemlist.ui
 import androidx.lifecycle.viewModelScope
 import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent.NavigateBack
 import com.stewemetal.takehometemplate.itemlist.ui.HomeNavigationEvent.NavigateToItemDetails
-import com.stewemetal.takehometemplate.itemlist.ui.HomeViewEvent.BackClicked
-import com.stewemetal.takehometemplate.itemlist.ui.HomeViewEvent.ItemClicked
-import com.stewemetal.takehometemplate.itemlist.ui.HomeViewEvent.NavigationEventConsumed
+import com.stewemetal.takehometemplate.itemlist.ui.ItemListViewEvent.AppBarNavigationClicked
+import com.stewemetal.takehometemplate.itemlist.ui.ItemListViewEvent.ItemClicked
+import com.stewemetal.takehometemplate.itemlist.ui.ItemListViewEvent.NavigationEventConsumed
 import com.stewemetal.takehometemplate.shell.architecture.BaseViewModel
 import com.stewemetal.takehometemplate.shell.domain.usecase.GetItemsUseCase
 import kotlinx.coroutines.launch
@@ -13,17 +13,17 @@ import org.koin.android.annotation.KoinViewModel
 import timber.log.Timber
 
 @KoinViewModel
-internal class HomeViewModel(
+internal class ItemListViewModel(
     private val getItemsUseCase: GetItemsUseCase,
-) : BaseViewModel<HomeViewEvent, HomeState>(
-    HomeState()
+) : BaseViewModel<ItemListViewEvent, ItemListState>(
+    ItemListState()
 ) {
 
     init {
         viewModelScope.launch {
             val items = getItemsUseCase.getItems()
             emitNewState {
-                HomeState(
+                ItemListState(
                     isLoading = false,
                     items = items,
                 )
@@ -31,7 +31,7 @@ internal class HomeViewModel(
         }
     }
 
-    override fun onViewEvent(event: HomeViewEvent) {
+    override fun onViewEvent(event: ItemListViewEvent) {
         Timber.e(">>> HomeVM onViewEvent $event")
         when (event) {
             is ItemClicked -> {
@@ -40,7 +40,7 @@ internal class HomeViewModel(
                 }
             }
 
-            BackClicked -> {
+            AppBarNavigationClicked -> {
                 emitNewState {
                     copy(navigationEvent = NavigateBack)
                 }
