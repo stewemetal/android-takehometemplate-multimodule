@@ -76,7 +76,7 @@ jobs:
           gradle-home-cache-cleanup: true
           cache-read-only: false
       - name: Set up AVD cache
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         id: avd-cache
         with:
           path: |
