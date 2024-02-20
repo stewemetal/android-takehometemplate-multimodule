@@ -20,7 +20,7 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
       - name: Set up Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           gradle-home-cache-cleanup: true
           cache-read-only: false
@@ -47,7 +47,7 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
       - name: Set up Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           gradle-home-cache-cleanup: true
           cache-read-only: false
@@ -71,7 +71,7 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
       - name: Set up Gradle
-        uses: gradle/gradle-build-action@v2
+        uses: gradle/gradle-build-action@v3
         with:
           gradle-home-cache-cleanup: true
           cache-read-only: false
