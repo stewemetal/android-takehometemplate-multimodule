@@ -1,7 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.android.build.api.dsl.LibraryExtension
-import com.stewemetal.convention.configuration.ANDROID_TARGET_SDK_VERSION
 import com.stewemetal.convention.configuration.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -21,7 +20,6 @@ class AndroidBaseLibraryPlugin : Plugin<Project> {
 
             extensions.configure<LibraryExtension> {
                 configureKotlinAndroid(this)
-                defaultConfig.targetSdk = ANDROID_TARGET_SDK_VERSION
                 testOptions {
                     unitTests.all {
                         it.useJUnitPlatform()
