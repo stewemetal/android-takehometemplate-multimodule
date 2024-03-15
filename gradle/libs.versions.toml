@@ -6,6 +6,7 @@ junit = "4.13.2"
 androidx-test-ext-junit = "1.1.5"
 espresso-core = "3.5.1"
 lifecycle-runtime-ktx = "2.7.0"
+lifecycle-runtime-compose = "2.7.0"
 compose-bom = "2024.02.02"
 androidx-compose-compiler = "1.5.10"
 activity-compose = "1.8.2"
@@ -19,7 +20,7 @@ com-google-devtools-ksp = "1.9.22-1.0.18"
 android-compile-sdk = "34"
 android-min-sdk = "29"
 android-target-sdk = "34"
-jvm-target = "11"
+jvm-target = "17"
 io-gitlab-arturbosch-detekt = "1.23.5"
 com-squareup-retrofit = "2.9.0"
 com-squareup-moshi = "1.15.1"
@@ -52,6 +53,7 @@ androidx-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-mani
 androidx-compose-ui-test-junit4 = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "appcompat" }
+androidx-lifecycle-runtime-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycle-runtime-compose" }
 androidx-material = { module = "com.google.android.material:material", version.ref = "material" }
 io-insert-koin-android = { module = "io.insert-koin:koin-android", version.ref = "io-insert-koin" }
 io-insert-koin-annotations = { module = "io.insert-koin:koin-annotations", version.ref = "io-insert-koin-annotations" }
@@ -81,20 +83,13 @@ androidx-test-core = { module = "androidx.test:core", version.ref = "androidx-te
 androidx-test-rules = { module = "androidx.test:rules", version.ref = "androidx-test" }
 androidx-test-runner = { module = "androidx.test:runner", version.ref = "androidx-test-runner" }
 
-[plugins]
-androidApplication = { id = "com.android.application", version.ref = "agp" }
-kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
-com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
-io-gitlab-arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "io-gitlab-arturbosch-detekt" }
-androidLibrary = { id = "com.android.library", version.ref = "agp" }
-
 [bundles]
 compose = [
     "androidx-compose-ui",
     "androidx-compose-ui-graphics",
-    "androidx-compose-ui-tooling",
     "androidx-compose-ui-tooling-preview",
     "androidx-navigation-compose",
+    "androidx-lifecycle-runtime-compose",
 ]
 compose-testing = [
     "androidx-compose-ui-test-manifest",
@@ -117,4 +112,21 @@ kotest = [
     "io-kotest-assertions-core",
     "io-kotest-property",
 ]
+
+[plugins]
+androidApplication = { id = "com.android.application", version.ref = "agp" }
+kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
+io-gitlab-arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "io-gitlab-arturbosch-detekt" }
+androidLibrary = { id = "com.android.library", version.ref = "agp" }
+
+# Plugins defined in this project
+project-application = { id = "com.stewemetal.takehometemplate.android.application", version = "undefined" }
+project-application-compose = { id = "com.stewemetal.takehometemplate.android.application.compose", version = "undefined" }
+project-application-koin-annotation = { id = "com.stewemetal.takehometemplate.android.application.koin.annotations", version = "undefined" }
+project-feature = { id = "com.stewemetal.takehometemplate.android.feature", version = "undefined" }
+project-library = { id = "com.stewemetal.takehometemplate.android.library", version = "undefined" }
+project-library-base = { id = "com.stewemetal.takehometemplate.android.base.library", version = "undefined" }
+project-library-compose = { id = "com.stewemetal.takehometemplate.android.library.compose", version = "undefined" }
+project-library-koin-annotation = { id = "com.stewemetal.takehometemplate.android.library.koin.annotations", version = "undefined" }
 

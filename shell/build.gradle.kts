@@ -1,22 +1,12 @@
-@file:Suppress("UnstableApiUsage")
-
 plugins {
-    id("com.stewemetal.takehometemplate.android.base.library")
-    id("com.stewemetal.takehometemplate.android.library.compose")
-    id("com.stewemetal.takehometemplate.android.library.koin.annotations")
+    alias(libs.plugins.project.library.base)
+    alias(libs.plugins.project.library.compose)
+    alias(libs.plugins.project.library.koin.annotation)
     alias(libs.plugins.com.google.devtools.ksp)
 }
 
 android {
     namespace = "com.stewemetal.takehometemplate.shell"
-
-    buildFeatures {
-        buildConfig = true
-    }
-
-    defaultConfig {
-        buildConfigField("String", "VERSION_NAME", "\"1.0\"")
-    }
 
     buildTypes {
         debug {

@@ -12,10 +12,10 @@ import org.koin.androidx.compose.koinViewModel
 
 internal class ItemDetailsNavGraphFactoryImpl : ItemDetailsNavGraphFactory {
     override fun buildNavGraph(
-        navGrapBuilder: NavGraphBuilder,
+        navGraphBuilder: NavGraphBuilder,
         onNavigateBack: () -> Unit,
     ) {
-        navGrapBuilder.composable("$ItemDetailsRoute/{$ItemDetailsItemIdArg}") {
+        navGraphBuilder.composable("$ItemDetailsRoute/{$ItemDetailsItemIdArg}") {
             val viewModel: ItemDetailsViewModel = koinViewModel()
             val state = viewModel.state.collectAsState()
 

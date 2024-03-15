@@ -12,16 +12,16 @@ import org.jetbrains.kotlin.gradle.dsl.kotlinExtension
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 /**
- * Configure base Kotlin with Android options
+ * Configure Kotlin with Android options
  */
 internal fun Project.configureKotlinAndroid(
     commonExtension: CommonExtension<*, *, *, *, *, *>,
 ) {
     commonExtension.apply {
-        compileSdk = ANDROID_COMPILE_SDK_VERSION
+        compileSdk = AndroidCompileSdkVersion
 
         defaultConfig {
-            minSdk = ANDROID_MIN_SDK_VERSION
+            minSdk = AndroidMinSdkVersion
             testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
             testInstrumentationRunnerArguments["clearPackageData"] = "true"
             vectorDrawables {
@@ -30,9 +30,8 @@ internal fun Project.configureKotlinAndroid(
         }
 
         compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
-//            isCoreLibraryDesugaringEnabled = true
+            sourceCompatibility = JavaVersion.VERSION_17
+            targetCompatibility = JavaVersion.VERSION_17
         }
 
         testOptions {
@@ -44,19 +43,14 @@ internal fun Project.configureKotlinAndroid(
             }
         }
 
-        compileOptions {
-            sourceCompatibility = JavaVersion.VERSION_11
-            targetCompatibility = JavaVersion.VERSION_11
-        }
-
         tasks.withType<KotlinCompile>().configureEach {
             kotlinOptions {
-                jvmTarget = "11"
+                jvmTarget = JvmTargetVersion
             }
         }
 
         kotlinOptions {
-            jvmTarget = JVM_TARGET
+            jvmTarget = JvmTargetVersion
         }
 
         packaging {
@@ -78,10 +72,6 @@ internal fun Project.configureKotlinAndroid(
     kotlinExtension.sourceSets.configureEach {
         languageSettings.optIn("kotlinx.coroutines.ExperimentalCoroutinesApi")
     }
-
-//    dependencies {
-//        add("lintChecks", project(":lint"))
-//    }
 }
 
 fun CommonExtension<*, *, *, *, *, *>.kotlinOptions(block: KotlinJvmOptions.() -> Unit) {

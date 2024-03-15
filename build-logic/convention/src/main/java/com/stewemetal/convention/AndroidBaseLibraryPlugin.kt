@@ -1,13 +1,13 @@
 @file:Suppress("UnstableApiUsage")
 
 import com.android.build.api.dsl.LibraryExtension
+import com.stewemetal.convention.configuration.Junit
+import com.stewemetal.convention.configuration.KotestBundle
 import com.stewemetal.convention.configuration.configureKotlinAndroid
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
-import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.kotlin
 
 class AndroidBaseLibraryPlugin : Plugin<Project> {
@@ -27,12 +27,10 @@ class AndroidBaseLibraryPlugin : Plugin<Project> {
                 }
             }
 
-            val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-
             dependencies {
-                add("testImplementation", libs.findBundle("kotest").get())
+                add("testImplementation", KotestBundle)
                 add("testImplementation", kotlin("test"))
-                add("testImplementation", libs.findLibrary("junit").get())
+                add("testImplementation", Junit)
             }
         }
     }

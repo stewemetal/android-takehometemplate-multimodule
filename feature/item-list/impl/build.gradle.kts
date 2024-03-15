@@ -1,24 +1,11 @@
 plugins {
-    id("com.stewemetal.takehometemplate.android.feature")
-    id("com.stewemetal.takehometemplate.android.library.koin.annotations")
+    alias(libs.plugins.project.feature)
+    alias(libs.plugins.project.library.koin.annotation)
     alias(libs.plugins.com.google.devtools.ksp)
 }
 
 android {
     namespace = "com.stewemetal.takehometemplate.itemlist"
-
-    buildTypes {
-        debug {
-            isMinifyEnabled = false
-        }
-        release {
-            isMinifyEnabled = true
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
 }
 
 dependencies {

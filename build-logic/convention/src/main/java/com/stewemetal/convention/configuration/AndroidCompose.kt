@@ -11,17 +11,19 @@ internal fun Project.configureAndroidCompose(
     commonExtension: CommonExtension<*, *, *, *, *, *>
 ) {
     commonExtension.apply {
-        composeOptions.kotlinCompilerExtensionVersion = project.COMPOSE_COMPILER
+        composeOptions.kotlinCompilerExtensionVersion = project.ComposeCompilerVersion
         buildFeatures.compose = true
 
-        dependencies {
-            add("implementation", platform(COMPOSE_BOM))
-            add("implementation", project.COMPOSE_BUNDLE)
+        with(project) {
+            dependencies {
+                add("implementation", platform(ComposeBom))
+                add("implementation", ComposeBundle)
 
-            add("androidTestImplementation", platform(COMPOSE_BOM))
-            add("androidTestImplementation", project.COMPOSE_TESTING_BUNDLE)
+                add("debugImplementation", ComposeUiTooling)
 
-            add("androidTestImplementation", project.COMPOSE_TESTING_MANIFEST)
+                add("androidTestImplementation", ComposeTestingBundle)
+                add("androidTestImplementation", ComposeTestingManifest)
+            }
         }
     }
 }
