@@ -70,7 +70,7 @@ fun TakeHomeTemplateApp(
         )
 
         itemDetailsNavGraphFactory.buildNavGraph(
-            navGrapBuilder = this,
+            navGraphBuilder = this,
             onNavigateBack = {
                 navController.debouncedNavigation {
                     navigateUp()

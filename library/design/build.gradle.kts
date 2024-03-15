@@ -1,7 +1,6 @@
 plugins {
-    id("com.stewemetal.takehometemplate.android.base.library")
-    id("com.stewemetal.takehometemplate.android.library.compose")
-    id("com.stewemetal.takehometemplate.android.library.koin.annotations")
+    alias(libs.plugins.project.library.base)
+    alias(libs.plugins.project.library.compose)
 }
 
 android {

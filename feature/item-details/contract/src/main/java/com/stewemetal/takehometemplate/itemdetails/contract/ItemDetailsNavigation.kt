@@ -12,7 +12,7 @@ const val ItemDetailsItemIdArg = "itemId"
 interface ItemDetailsNavGraphFactory {
 
     fun buildNavGraph(
-        navGrapBuilder: NavGraphBuilder,
+        navGraphBuilder: NavGraphBuilder,
         onNavigateBack: () -> Unit,
     )
 }

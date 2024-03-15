@@ -1,6 +1,5 @@
 package com.stewemetal.takehometemplate.itemlist.ui
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Row
@@ -31,7 +30,7 @@ import com.stewemetal.takehometemplate.shell.domain.model.Item
 import com.stewemetal.takehometemplate.shell.domain.model.ItemId
 import java.util.UUID
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 internal fun ItemListScreen(
     state: ItemListState,
@@ -62,7 +61,7 @@ internal fun ItemListScreen(
                     item = item,
                     modifier = Modifier
                         .clickable(
-                            interactionSource = MutableInteractionSource(),
+                            interactionSource = remember { MutableInteractionSource() },
                             indication = rememberRipple(),
                         ) {
                             onItemClick(item.id)

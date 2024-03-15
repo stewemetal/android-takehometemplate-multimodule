@@ -5,7 +5,7 @@ import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavOptionsBuilder
 import com.stewemetal.takehometemplate.shell.domain.model.ItemId
 
-const val ItemListRoute = "itemlist"
+const val ItemListRoute = "item-list"
 
 interface ItemListNavGraphFactory {
 
