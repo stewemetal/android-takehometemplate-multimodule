@@ -33,7 +33,6 @@ internal val Project.AndroidCompileSdkVersion get() = versionInt("android.compil
 internal val Project.AndroidMinSdkVersion get() = versionInt("android.min.sdk")
 internal val Project.AndroidTargetSdkVersion get() = versionInt("android.target.sdk")
 internal val Project.JvmTargetVersion get() = version("jvm.target")
-internal val Project.ComposeCompilerVersion get() = version("androidx.compose.compiler")
 internal val Project.ComposeBundle get() = bundle("compose")
 internal val Project.ComposeBom get() = library("androidx.compose.bom")
 internal val Project.ComposeTestingBundle get() = bundle("compose.testing")

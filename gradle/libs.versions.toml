@@ -8,7 +8,6 @@ espresso-core = "3.6.1"
 lifecycle-runtime-ktx = "2.8.7"
 lifecycle-runtime-compose = "2.8.7"
 compose-bom = "2024.04.01"
-androidx-compose-compiler = "1.5.11"
 activity-compose = "1.9.0"
 appcompat = "1.7.1"
 material = "1.12.0"
@@ -116,6 +115,7 @@ kotest = [
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
 kotlinAndroid = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+kotlin-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 com-google-devtools-ksp = { id = "com.google.devtools.ksp", version.ref = "com-google-devtools-ksp" }
 io-gitlab-arturbosch-detekt = { id = "io.gitlab.arturbosch.detekt", version.ref = "io-gitlab-arturbosch-detekt" }
 androidLibrary = { id = "com.android.library", version.ref = "agp" }
