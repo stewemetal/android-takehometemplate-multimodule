@@ -1,3 +1,5 @@
 This is a test file to trigger the Claude Code GitHub Action workflow.
 
 Testing workflow trigger on PR.
+
+Update: Testing after fixing invalid skip_permission_check parameter.
