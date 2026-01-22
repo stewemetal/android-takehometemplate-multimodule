@@ -11,7 +11,6 @@ internal fun Project.configureAndroidCompose(
     commonExtension: CommonExtension<*, *, *, *, *, *>
 ) {
     commonExtension.apply {
-        composeOptions.kotlinCompilerExtensionVersion = project.ComposeCompilerVersion
         buildFeatures.compose = true
 
         with(project) {
