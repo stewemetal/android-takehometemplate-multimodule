@@ -10,14 +10,15 @@ java {
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile::class.java).configureEach {
-    kotlinOptions {
-        jvmTarget = "17"
+    compilerOptions {
+        jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_17)
     }
 }
 
 dependencies {
     compileOnly(libs.com.android.tools.build.gradle)
     compileOnly(libs.org.jetbrains.kotlin.gradle.plugin)
+    compileOnly(libs.kotlin.compose.compiler.gradle.plugin)
 }
 
 gradlePlugin {
