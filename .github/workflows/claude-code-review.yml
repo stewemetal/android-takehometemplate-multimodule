@@ -26,7 +26,6 @@ jobs:
       id-token: write
       actions: read
       repository-projects: read
-      metadata: read
 
     steps:
       - name: Checkout repository
@@ -40,6 +39,8 @@ jobs:
         with:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           prompt: 'Review this pull request for code quality, potential bugs, and best practices. Focus on Android/Kotlin code patterns.'
+          allowed_bots: 'renovate'
+          
           # See https://github.com/anthropics/claude-code-action/blob/main/docs/usage.md
           # or https://code.claude.com/docs/en/cli-reference for available options
 
