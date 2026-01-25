@@ -30,7 +30,7 @@ com-jakewharton-timber = "5.0.1"
 androidx-test = "1.7.0"
 androidx-test-runner = "1.7.0"
 androidx-test-orchestrator = "1.5.1"
-androidx-navigation-compose = "2.8.8"
+androidx-navigation-compose = "2.9.6"
 
 [libraries]
 androidx-navigation-compose = { module = "androidx.navigation:navigation-compose", version.ref = "androidx-navigation-compose" }
