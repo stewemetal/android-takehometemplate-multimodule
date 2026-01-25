@@ -19,3 +19,17 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Koin
+-keep class org.koin.ksp.generated.** { *; }
+-keep class **ModuleGen** { *; }
+
+# Keep all Koin module classes
+-keep class com.stewemetal.takehometemplate.**.Module { *; }
+-keep class com.stewemetal.takehometemplate.**.Module$* { *; }
+
+# Keep shell module classes that are referenced by feature modules
+-keep class com.stewemetal.takehometemplate.shell.** { *; }
+
+# Keep navigation factories
+-keep class com.stewemetal.takehometemplate.**.contract.** { *; }
