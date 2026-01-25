@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: 🤖 Claude Code Documentation
+    url: https://claude.com/claude-code
+    about: Learn more about Claude Code capabilities and usage
+  - name: 💬 Discussions
+    url: https://github.com/stewemetal/android-takehometemplate-multimodule/discussions
+    about: Ask questions and discuss ideas with the community

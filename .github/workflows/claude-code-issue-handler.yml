@@ -1,0 +1,320 @@
+name: Claude Code Issue Handler
+
+on:
+  issues:
+    types: [labeled]
+  issue_comment:
+    types: [created]
+
+jobs:
+  handle-issue:
+    # Only run when labeled with 'claude-code' or when commented with '/claude'
+    if: |
+      (github.event_name == 'issues' && github.event.label.name == 'claude-code') ||
+      (github.event_name == 'issue_comment' &&
+       contains(github.event.comment.body, '/claude') &&
+       github.event.issue.pull_request == null)
+
+    runs-on: ubuntu-latest
+
+    # Timeout after 30 minutes to prevent runaway costs
+    timeout-minutes: 30
+
+    permissions:
+      contents: write
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Check rate limit
+        run: |
+          # Only allow 10 Claude Code tasks per day to control costs
+          TODAY=$(date -u +%Y-%m-%d)
+
+          # Count issues with claude-code label created today
+          COUNT=$(gh api graphql -f query='
+            query($owner: String!, $repo: String!) {
+              repository(owner: $owner, name: $repo) {
+                issues(first: 100, labels: ["claude-code"], orderBy: {field: CREATED_AT, direction: DESC}) {
+                  nodes {
+                    createdAt
+                  }
+                }
+              }
+            }' -f owner=${{ github.repository_owner }} -f repo=${{ github.event.repository.name }} \
+            --jq "[.data.repository.issues.nodes[] | select(.createdAt | startswith(\"$TODAY\"))] | length")
+
+          echo "Claude Code tasks today: $COUNT"
+
+          if [ "$COUNT" -gt 10 ]; then
+            gh issue comment ${{ github.event.issue.number }} \
+              --body "⚠️ **Rate limit exceeded**
+
+              Maximum of 10 Claude Code tasks per day to control API costs.
+              Please try again tomorrow or contact a maintainer for urgent issues.
+
+              Current count today: $COUNT/10"
+            exit 1
+          fi
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Add in-progress label
+        run: |
+          gh issue edit ${{ github.event.issue.number }} \
+            --add-label "claude-in-progress"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v3
+
+      - name: Get issue details
+        id: issue
+        run: |
+          ISSUE_NUMBER=${{ github.event.issue.number }}
+          ISSUE_TITLE=$(echo '${{ github.event.issue.title }}' | sed 's/[^a-zA-Z0-9]/-/g' | tr '[:upper:]' '[:lower:]' | cut -c1-50)
+
+          echo "number=$ISSUE_NUMBER" >> $GITHUB_OUTPUT
+          echo "title_slug=$ISSUE_TITLE" >> $GITHUB_OUTPUT
+
+      - name: Configure git
+        run: |
+          git config --global user.name "Claude Code Bot"
+          git config --global user.email "claude-code-bot@users.noreply.github.com"
+
+      - name: Create branch
+        id: branch
+        run: |
+          BRANCH_NAME="claude/issue-${{ steps.issue.outputs.number }}-${{ steps.issue.outputs.title_slug }}"
+
+          # Check if branch already exists
+          if git ls-remote --heads origin "$BRANCH_NAME" | grep -q "$BRANCH_NAME"; then
+            echo "Branch already exists, creating unique name"
+            BRANCH_NAME="${BRANCH_NAME}-$(date +%s)"
+          fi
+
+          git checkout -b "$BRANCH_NAME"
+          echo "name=$BRANCH_NAME" >> $GITHUB_OUTPUT
+
+      - name: Install Claude Code CLI
+        run: |
+          # Install Claude Code - adjust this based on actual installation method
+          # This is a placeholder - replace with actual Claude Code CLI installation
+          curl -fsSL https://cli.anthropic.com/install.sh | sh || true
+
+          # Alternative: Use npx or other package manager if available
+          # npm install -g @anthropic-ai/claude-cli || true
+
+      - name: Run Claude Code
+        id: claude
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          # Create a prompt file
+          cat > /tmp/claude-prompt.txt << 'EOF'
+          Implement GitHub issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
+
+          Issue details:
+          ${{ github.event.issue.body }}
+
+          Please complete the following tasks:
+
+          1. **Analyze the issue**: Understand what needs to be implemented
+          2. **Plan the implementation**: Identify which files need to be modified
+          3. **Implement the solution**: Make the necessary code changes
+          4. **Add tests**: Add or update tests to cover the new functionality
+          5. **Verify**: Run tests to ensure everything works
+          6. **Document**: Update documentation if needed
+
+          Important guidelines:
+          - Follow the existing code patterns and style in this project
+          - Ensure all tests pass with `./gradlew test`
+          - Keep changes focused on the issue requirements
+          - Use the project's existing architecture (multi-module, Koin DI, Compose)
+          - Add ProGuard rules if new classes are added
+
+          When finished, create a summary of:
+          - What was changed
+          - Why it was changed
+          - How to test the changes
+          EOF
+
+          # Run Claude Code (placeholder - adjust command based on actual CLI)
+          # claude-code --file /tmp/claude-prompt.txt --auto-commit
+
+          # For now, add a comment explaining manual setup is needed
+          echo "needs_manual_setup=true" >> $GITHUB_OUTPUT
+
+      - name: Verify build
+        run: |
+          # Run tests to ensure everything works
+          ./gradlew test --no-daemon
+
+      - name: Commit changes
+        id: commit
+        run: |
+          # Check if there are any changes
+          if [ -n "$(git status --porcelain)" ]; then
+            git add .
+
+            git commit -m "$(cat <<'COMMIT_MSG'
+          Implement issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
+
+          Automated implementation by Claude Code.
+
+          Closes #${{ github.event.issue.number }}
+
+          Co-Authored-By: Claude Code <noreply@anthropic.com>
+          COMMIT_MSG
+          )"
+
+            echo "has_changes=true" >> $GITHUB_OUTPUT
+          else
+            echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "No changes were made"
+          fi
+
+      - name: Push branch
+        if: steps.commit.outputs.has_changes == 'true'
+        run: |
+          git push -u origin "${{ steps.branch.outputs.name }}"
+
+      - name: Create Pull Request
+        if: steps.commit.outputs.has_changes == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # Get the list of files changed
+          FILES_CHANGED=$(git diff --name-only origin/main..HEAD | head -10)
+
+          # Create PR
+          gh pr create \
+            --title "Fix #${{ github.event.issue.number }}: ${{ github.event.issue.title }}" \
+            --body "$(cat <<'PR_BODY'
+          ## 🤖 Automated Implementation
+
+          This PR was automatically generated by Claude Code to address issue #${{ github.event.issue.number }}.
+
+          ## 📋 Original Issue
+
+          ${{ github.event.issue.title }}
+
+          ## 🔄 Changes
+
+          <details>
+          <summary>Files modified</summary>
+
+          ```
+          $FILES_CHANGED
+          ```
+
+          </details>
+
+          ## ✅ Testing
+
+          - [x] All existing tests pass
+          - [ ] Manual testing required (please review)
+
+          ## 📝 Review Checklist
+
+          - [ ] Code follows project conventions
+          - [ ] Tests are adequate
+          - [ ] Documentation is updated
+          - [ ] No unintended side effects
+
+          ## 🔗 Related
+
+          Closes #${{ github.event.issue.number }}
+
+          ---
+
+          🤖 Generated by [Claude Code](https://claude.com/claude-code)
+          PR_BODY
+          )" \
+            --base main \
+            --head "${{ steps.branch.outputs.name }}" \
+            --label "automated" \
+            --label "needs-review"
+
+          # Get PR number
+          PR_NUMBER=$(gh pr view "${{ steps.branch.outputs.name }}" --json number -q .number)
+          echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
+
+          # Comment on the issue
+          gh issue comment ${{ github.event.issue.number }} \
+            --body "✅ **Pull Request Created**
+
+            Claude Code has analyzed the issue and created PR #$PR_NUMBER with a proposed implementation.
+
+            Please review the changes and provide feedback.
+
+            [View Pull Request →](https://github.com/${{ github.repository }}/pull/$PR_NUMBER)"
+
+      - name: Handle no changes
+        if: steps.commit.outputs.has_changes == 'false'
+        run: |
+          gh issue comment ${{ github.event.issue.number }} \
+            --body "ℹ️ **No Changes Required**
+
+            Claude Code analyzed this issue but determined no code changes are necessary.
+
+            This could mean:
+            - The issue is already resolved
+            - The request needs clarification
+            - The issue requires manual intervention
+
+            Please review and provide more details if needed."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Handle manual setup needed
+        if: steps.claude.outputs.needs_manual_setup == 'true'
+        run: |
+          gh issue comment ${{ github.event.issue.number }} \
+            --body "⚠️ **Manual Setup Required**
+
+            The Claude Code CLI is not yet configured for this repository.
+
+            To enable automated issue handling, please:
+
+            1. Add your Anthropic API key as a repository secret named \`ANTHROPIC_API_KEY\`
+            2. Install the Claude Code CLI in the workflow
+            3. Configure the CLI for your specific needs
+
+            For now, this issue will need to be handled manually."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Remove in-progress label
+        if: always()
+        run: |
+          gh issue edit ${{ github.event.issue.number }} \
+            --remove-label "claude-in-progress" || true
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Handle failure
+        if: failure()
+        run: |
+          gh issue comment ${{ github.event.issue.number }} \
+            --body "❌ **Error Processing Issue**
+
+            Claude Code encountered an error while processing this issue.
+
+            Please check the [workflow run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}) for details.
+
+            This issue will need manual attention."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
