@@ -48,6 +48,7 @@ jobs:
 
           if [ "$COUNT" -gt 10 ]; then
             gh issue comment ${{ github.event.issue.number }} \
+              --repo ${{ github.repository }} \
               --body "⚠️ **Rate limit exceeded**
 
               Maximum of 10 Claude Code tasks per day to control API costs.
@@ -62,6 +63,7 @@ jobs:
       - name: Add in-progress label
         run: |
           gh issue edit ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
             --add-label "claude-in-progress"
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -201,6 +203,7 @@ jobs:
 
           # Create PR
           gh pr create \
+            --repo ${{ github.repository }} \
             --title "Fix #${{ github.event.issue.number }}: ${{ github.event.issue.title }}" \
             --body "$(cat <<'PR_BODY'
           ## 🤖 Automated Implementation
@@ -249,11 +252,12 @@ jobs:
             --label "needs-review"
 
           # Get PR number
-          PR_NUMBER=$(gh pr view "${{ steps.branch.outputs.name }}" --json number -q .number)
+          PR_NUMBER=$(gh pr view "${{ steps.branch.outputs.name }}" --repo ${{ github.repository }} --json number -q .number)
           echo "pr_number=$PR_NUMBER" >> $GITHUB_OUTPUT
 
           # Comment on the issue
           gh issue comment ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
             --body "✅ **Pull Request Created**
 
             Claude Code has analyzed the issue and created PR #$PR_NUMBER with a proposed implementation.
@@ -266,6 +270,7 @@ jobs:
         if: steps.commit.outputs.has_changes == 'false'
         run: |
           gh issue comment ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
             --body "ℹ️ **No Changes Required**
 
             Claude Code analyzed this issue but determined no code changes are necessary.
@@ -283,6 +288,7 @@ jobs:
         if: steps.claude.outputs.needs_manual_setup == 'true'
         run: |
           gh issue comment ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
             --body "⚠️ **Manual Setup Required**
 
             The Claude Code CLI is not yet configured for this repository.
@@ -301,6 +307,7 @@ jobs:
         if: always()
         run: |
           gh issue edit ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
             --remove-label "claude-in-progress" || true
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
@@ -309,6 +316,7 @@ jobs:
         if: failure()
         run: |
           gh issue comment ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
             --body "❌ **Error Processing Issue**
 
             Claude Code encountered an error while processing this issue.
