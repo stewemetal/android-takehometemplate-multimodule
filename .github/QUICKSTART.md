@@ -4,13 +4,11 @@ Get up and running with Claude Code automation in 5 minutes!
 
 ## ⚡ Quick Setup
 
-### Step 1: Add API Key (2 minutes)
+### Step 1: Add OAuth Token (Already Done! ✅)
 
-1. Get your Anthropic API key from https://console.anthropic.com/
-2. In GitHub: **Settings** → **Secrets and variables** → **Actions** → **New repository secret**
-3. Name: `ANTHROPIC_API_KEY`
-4. Value: Your API key
-5. Click **Add secret**
+Your repository already has `CLAUDE_CODE_OAUTH_TOKEN` configured, which uses your Claude Max subscription.
+
+**No additional API costs!** This uses your existing Claude Max plan.
 
 ### Step 2: Create Labels (1 minute)
 
@@ -61,11 +59,11 @@ Claude Code will:
 ❌ Bad: "add dark mode"
 ✅ Good: Clear requirements + acceptance criteria + constraints
 
-### Control Costs
+### Usage Limits
 
-- Start with small issues
-- Monitor usage at https://console.anthropic.com/settings/usage
-- Default limit: 10 tasks/day (configurable)
+- No API costs! Uses your Claude Max subscription
+- Default limit: 10 tasks/day (configurable to prevent spam)
+- Same AI quality as the web interface
 
 ### Best Use Cases
 
@@ -84,16 +82,17 @@ Claude Code will:
 
 **Issue**: Workflow doesn't start
 - ✓ Check the `claude-code` label is applied
-- ✓ Verify ANTHROPIC_API_KEY secret exists
+- ✓ Verify CLAUDE_CODE_OAUTH_TOKEN secret exists
 - ✓ Check Actions tab for errors
 
 **Issue**: "Rate limit exceeded"
 - ✓ Max 10 tasks/day by default
 - ✓ Edit workflow file to increase if needed
 
-**Issue**: "Manual setup required" comment
-- ✓ Claude Code CLI needs configuration
-- ✓ See full setup guide for details
+**Issue**: No changes made
+- ✓ Issue may need more detail or clarification
+- ✓ Check workflow logs for Claude's reasoning
+- ✓ Update issue description and try again
 
 ## 🎯 Next Steps
 

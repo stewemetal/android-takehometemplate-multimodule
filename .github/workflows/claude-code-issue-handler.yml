@@ -24,6 +24,9 @@ jobs:
       contents: write
       issues: write
       pull-requests: write
+      id-token: write
+      actions: read
+      repository-projects: read
 
     steps:
       - name: Check rate limit
@@ -110,79 +113,43 @@ jobs:
           git checkout -b "$BRANCH_NAME"
           echo "name=$BRANCH_NAME" >> $GITHUB_OUTPUT
 
-      - name: Install Claude Code CLI
-        run: |
-          # Install Claude Code - adjust this based on actual installation method
-          # This is a placeholder - replace with actual Claude Code CLI installation
-          curl -fsSL https://cli.anthropic.com/install.sh | sh || true
-
-          # Alternative: Use npx or other package manager if available
-          # npm install -g @anthropic-ai/claude-cli || true
-
-      - name: Run Claude Code
+      - name: Run Claude Code Implementation
         id: claude
-        env:
-          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
-        run: |
-          # Create a prompt file
-          cat > /tmp/claude-prompt.txt << 'EOF'
-          Implement GitHub issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
+        uses: anthropics/claude-code-action@v1
+        with:
+          claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
+          prompt: |
+            Implement GitHub issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
 
-          Issue details:
-          ${{ github.event.issue.body }}
+            Issue details:
+            ${{ github.event.issue.body }}
 
-          Please complete the following tasks:
+            Please complete the following tasks:
 
-          1. **Analyze the issue**: Understand what needs to be implemented
-          2. **Plan the implementation**: Identify which files need to be modified
-          3. **Implement the solution**: Make the necessary code changes
-          4. **Add tests**: Add or update tests to cover the new functionality
-          5. **Verify**: Run tests to ensure everything works
-          6. **Document**: Update documentation if needed
+            1. **Analyze the issue**: Understand what needs to be implemented
+            2. **Plan the implementation**: Identify which files need to be modified
+            3. **Implement the solution**: Make the necessary code changes
+            4. **Add tests**: Add or update tests to cover the new functionality
+            5. **Verify**: Run tests to ensure everything works
+            6. **Document**: Update documentation if needed
 
-          Important guidelines:
-          - Follow the existing code patterns and style in this project
-          - Ensure all tests pass with `./gradlew test`
-          - Keep changes focused on the issue requirements
-          - Use the project's existing architecture (multi-module, Koin DI, Compose)
-          - Add ProGuard rules if new classes are added
+            Important guidelines:
+            - Follow the existing code patterns and style in this project
+            - Ensure all tests pass with `./gradlew test`
+            - Keep changes focused on the issue requirements
+            - Use the project's existing architecture (multi-module, Koin DI, Compose)
+            - Add ProGuard rules if new classes are added
+            - Make all necessary code changes and commit them to the current branch
 
-          When finished, create a summary of:
-          - What was changed
-          - Why it was changed
-          - How to test the changes
-          EOF
+            When finished, ensure all changes are committed.
 
-          # Run Claude Code (placeholder - adjust command based on actual CLI)
-          # claude-code --file /tmp/claude-prompt.txt --auto-commit
-
-          # For now, add a comment explaining manual setup is needed
-          echo "needs_manual_setup=true" >> $GITHUB_OUTPUT
-
-      - name: Verify build
-        run: |
-          # Run tests to ensure everything works
-          ./gradlew test --no-daemon
-
-      - name: Commit changes
+      - name: Check for changes
         id: commit
         run: |
-          # Check if there are any changes
-          if [ -n "$(git status --porcelain)" ]; then
-            git add .
-
-            git commit -m "$(cat <<'COMMIT_MSG'
-          Implement issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
-
-          Automated implementation by Claude Code.
-
-          Closes #${{ github.event.issue.number }}
-
-          Co-Authored-By: Claude Code <noreply@anthropic.com>
-          COMMIT_MSG
-          )"
-
+          # Check if there are any changes (Claude Code action should have committed)
+          if [ -n "$(git log origin/main..HEAD)" ]; then
             echo "has_changes=true" >> $GITHUB_OUTPUT
+            echo "Changes detected and committed"
           else
             echo "has_changes=false" >> $GITHUB_OUTPUT
             echo "No changes were made"
@@ -281,25 +248,6 @@ jobs:
             - The issue requires manual intervention
 
             Please review and provide more details if needed."
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Handle manual setup needed
-        if: steps.claude.outputs.needs_manual_setup == 'true'
-        run: |
-          gh issue comment ${{ github.event.issue.number }} \
-            --repo ${{ github.repository }} \
-            --body "⚠️ **Manual Setup Required**
-
-            The Claude Code CLI is not yet configured for this repository.
-
-            To enable automated issue handling, please:
-
-            1. Add your Anthropic API key as a repository secret named \`ANTHROPIC_API_KEY\`
-            2. Install the Claude Code CLI in the workflow
-            3. Configure the CLI for your specific needs
-
-            For now, this issue will need to be handled manually."
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

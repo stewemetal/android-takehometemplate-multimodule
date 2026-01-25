@@ -18,10 +18,10 @@ This repository is configured to use Claude Code for automated issue implementat
 
 Add these secrets to your GitHub repository (Settings → Secrets and variables → Actions):
 
-1. **`ANTHROPIC_API_KEY`** (Required)
-   - Get your API key from https://console.anthropic.com/
-   - This is used to access Claude Code's AI capabilities
-   - **Cost**: Monitor your usage at https://console.anthropic.com/settings/usage
+1. **`CLAUDE_CODE_OAUTH_TOKEN`** (Required)
+   - Get your OAuth token from Claude Code CLI
+   - This uses your Claude Max subscription (no additional API costs!)
+   - See https://code.claude.com/docs/en/authentication for setup instructions
 
 ### Permissions
 
@@ -112,16 +112,18 @@ timeout-minutes: 30
 
 ### Cost Management
 
-Claude Code uses the Anthropic API, which has usage costs:
+This automation uses your **Claude Max subscription** via OAuth, so there are no additional API costs!
 
-- **Monitor usage**: https://console.anthropic.com/settings/usage
-- **Set budget alerts**: Configure in Anthropic Console
-- **Typical cost**: ~$0.10-$1.00 per issue (varies by complexity)
+**Benefits**:
+- ✅ No per-request API charges
+- ✅ Uses your existing Claude Max plan
+- ✅ Same AI capabilities as the web interface
+- ✅ Rate limiting built-in to prevent abuse
 
-**Tips to reduce costs**:
-1. Write detailed issues to reduce back-and-forth
+**Tips for best results**:
+1. Write detailed issues with clear acceptance criteria
 2. Test locally before using automation for simple tasks
-3. Use rate limiting (already configured)
+3. Use rate limiting (10 tasks/day by default)
 4. Review and close duplicate issues promptly
 
 ## 🏷️ Labels
