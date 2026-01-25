@@ -16,9 +16,9 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinJvmCompile::class.java).c
 }
 
 dependencies {
-    compileOnly(libs.com.android.tools.build.gradle)
-    compileOnly(libs.org.jetbrains.kotlin.gradle.plugin)
-    compileOnly(libs.kotlin.compose.compiler.gradle.plugin)
+    implementation(libs.com.android.tools.build.gradle)
+    implementation(libs.org.jetbrains.kotlin.gradle.plugin)
+    implementation(libs.kotlin.compose.compiler.gradle.plugin)
 }
 
 gradlePlugin {
