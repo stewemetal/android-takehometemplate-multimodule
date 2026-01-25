@@ -28,7 +28,7 @@ androidx-room = "2.8.4"
 io-kotest = "5.9.1"
 com-jakewharton-timber = "5.0.1"
 androidx-test = "1.7.0"
-androidx-test-runner = "1.6.2"
+androidx-test-runner = "1.7.0"
 androidx-test-orchestrator = "1.5.1"
 androidx-navigation-compose = "2.9.6"
 
