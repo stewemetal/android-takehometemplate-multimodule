@@ -8,6 +8,7 @@ import kotlinx.coroutines.flow.Flow
  * Provides a type-safe interface for storing and retrieving key-value pairs
  * from Android's SharedPreferences.
  */
+@Suppress("TooManyFunctions")
 interface SharedPreferencesDataSource {
 
     fun getString(key: String, defaultValue: String?): String?
