@@ -27,6 +27,7 @@ jobs:
       id-token: write
       actions: read
       repository-projects: read
+      workflows: write
 
     steps:
       - name: Check rate limit
