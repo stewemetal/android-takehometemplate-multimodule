@@ -121,7 +121,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           claude_args: |
             --allowedTools "Read,Write,Edit,Bash,Grep,Glob,Task"
-            --max-turns 30
+            --max-turns 50
           prompt: |
             Implement GitHub issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
 
@@ -139,12 +139,15 @@ jobs:
 
             Important guidelines:
             - Follow the existing code patterns and style in this project
+            - Work efficiently - you have a maximum of 50 turns to complete the task
+            - Focus on implementation first, optimize and test after core functionality works
             - Ensure all tests pass with `./gradlew test`
             - Keep changes focused on the issue requirements
             - Use the project's existing architecture (multi-module, Koin DI, Compose)
             - Add ProGuard rules if new classes are added and it's necessary to add them
             - Make all necessary code changes and commit them to the current branch
             - DO NOT modify any files in .github/workflows/ directory (GitHub Apps cannot push workflow changes)
+            - Commit your work incrementally as you complete each major component
 
             When finished, ensure all changes are committed.
 
