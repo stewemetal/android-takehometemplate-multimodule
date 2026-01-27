@@ -25,14 +25,13 @@ jobs:
       issues: write
       pull-requests: write
       id-token: write
-      actions: read
+      actions: write
       repository-projects: read
-      workflows: write
 
     steps:
       - name: Check rate limit
         run: |
-          # Only allow 10 Claude Code tasks per day to control costs
+          # Only allow 30 Claude Code tasks per day to control costs
           TODAY=$(date -u +%Y-%m-%d)
 
           # Count issues with claude-code label created today
@@ -50,15 +49,15 @@ jobs:
 
           echo "Claude Code tasks today: $COUNT"
 
-          if [ "$COUNT" -gt 10 ]; then
+          if [ "$COUNT" -gt 30 ]; then
             gh issue comment ${{ github.event.issue.number }} \
               --repo ${{ github.repository }} \
               --body "⚠️ **Rate limit exceeded**
 
-              Maximum of 10 Claude Code tasks per day to control API costs.
+              Maximum of 30 Claude Code tasks per day to control API costs.
               Please try again tomorrow or contact a maintainer for urgent issues.
 
-              Current count today: $COUNT/10"
+              Current count today: $COUNT/30"
             exit 1
           fi
         env:
@@ -122,7 +121,7 @@ jobs:
           claude_code_oauth_token: ${{ secrets.CLAUDE_CODE_OAUTH_TOKEN }}
           claude_args: |
             --allowedTools "Read,Write,Edit,Bash,Grep,Glob,Task"
-            --max-turns 25
+            --max-turns 30
           prompt: |
             Implement GitHub issue #${{ github.event.issue.number }}: ${{ github.event.issue.title }}
 
@@ -133,7 +132,7 @@ jobs:
 
             1. **Analyze the issue**: Understand what needs to be implemented
             2. **Plan the implementation**: Identify which files need to be modified
-            3. **Implement the solution**: Make the necessary code changes
+            3. **Implement the solution**: Make the necessary code changes, including changes that might affect workflows
             4. **Add tests**: Add or update tests to cover the new functionality
             5. **Verify**: Run tests to ensure everything works
             6. **Document**: Update documentation if needed
@@ -143,8 +142,9 @@ jobs:
             - Ensure all tests pass with `./gradlew test`
             - Keep changes focused on the issue requirements
             - Use the project's existing architecture (multi-module, Koin DI, Compose)
-            - Add ProGuard rules if new classes are added
+            - Add ProGuard rules if new classes are added and it's necessary to add them
             - Make all necessary code changes and commit them to the current branch
+            - DO NOT modify any files in .github/workflows/ directory (GitHub Apps cannot push workflow changes)
 
             When finished, ensure all changes are committed.
 
@@ -153,10 +153,20 @@ jobs:
         run: |
           # Check if there are any changes (Claude Code action should have committed)
           if [ -n "$(git log origin/main..HEAD)" ]; then
-            echo "has_changes=true" >> $GITHUB_OUTPUT
-            echo "Changes detected and committed"
+            # Check if workflow files were modified (GitHub Apps can't modify these)
+            if git diff --name-only origin/main..HEAD | grep -q "^.github/workflows/"; then
+              echo "has_changes=false" >> $GITHUB_OUTPUT
+              echo "workflow_modified=true" >> $GITHUB_OUTPUT
+              echo "ERROR: Workflow files cannot be modified by Claude Code automation"
+              echo "Please modify workflow files manually or use a Personal Access Token"
+            else
+              echo "has_changes=true" >> $GITHUB_OUTPUT
+              echo "workflow_modified=false" >> $GITHUB_OUTPUT
+              echo "Changes detected and committed"
+            fi
           else
             echo "has_changes=false" >> $GITHUB_OUTPUT
+            echo "workflow_modified=false" >> $GITHUB_OUTPUT
             echo "No changes were made"
           fi
 
@@ -240,8 +250,33 @@ jobs:
 
             [View Pull Request →](https://github.com/${{ github.repository }}/pull/$PR_NUMBER)"
 
+      - name: Handle workflow modification attempt
+        if: steps.commit.outputs.workflow_modified == 'true'
+        run: |
+          gh issue comment ${{ github.event.issue.number }} \
+            --repo ${{ github.repository }} \
+            --body "⚠️ **Workflow Modification Blocked**
+
+            Claude Code attempted to modify workflow files in \`.github/workflows/\`, but GitHub Apps cannot push changes to workflow files for security reasons.
+
+            **To modify workflow files, you have two options:**
+
+            1. **Use a Personal Access Token (PAT):**
+               - Create a PAT with \`workflow\` scope
+               - Add it as a repository secret (e.g., \`PAT_TOKEN\`)
+               - Update the checkout step to use: \`token: \${{ secrets.PAT_TOKEN }}\`
+
+            2. **Modify workflow files manually:**
+               - Review the changes Claude made locally
+               - Manually apply them to the workflow files
+               - Create a separate PR for workflow changes
+
+            Please implement this issue manually or update the automation configuration."
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Handle no changes
-        if: steps.commit.outputs.has_changes == 'false'
+        if: steps.commit.outputs.has_changes == 'false' && steps.commit.outputs.workflow_modified != 'true'
         run: |
           gh issue comment ${{ github.event.issue.number }} \
             --repo ${{ github.repository }} \
