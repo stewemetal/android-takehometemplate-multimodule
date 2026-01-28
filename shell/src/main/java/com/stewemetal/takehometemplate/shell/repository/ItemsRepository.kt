@@ -2,10 +2,10 @@ package com.stewemetal.takehometemplate.shell.repository
 
 import com.stewemetal.takehometemplate.shell.domain.model.Item
 import com.stewemetal.takehometemplate.shell.domain.model.ItemId
-import org.koin.core.annotation.Singleton
+import org.koin.core.annotation.Single
 import java.util.UUID
 
-@Singleton
+@Single
 class ItemsRepository {
     private val items = listOf(
         Item(ItemId(UUID.randomUUID().toString()), "a"),
