@@ -2,10 +2,10 @@ package com.stewemetal.takehometemplate.shell.resources
 
 import android.content.Context
 import androidx.annotation.StringRes
-import org.koin.core.annotation.Singleton
+import org.koin.core.annotation.Single
 import java.util.Locale
 
-@Singleton
+@Single
 internal class ResourceProviderImpl(
     private val context: Context,
 ) : ResourceProvider {

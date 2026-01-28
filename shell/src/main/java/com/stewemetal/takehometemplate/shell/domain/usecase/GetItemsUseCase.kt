@@ -4,9 +4,9 @@ import com.stewemetal.takehometemplate.shell.architecture.DispatcherProvider
 import com.stewemetal.takehometemplate.shell.domain.model.Item
 import com.stewemetal.takehometemplate.shell.repository.ItemsRepository
 import kotlinx.coroutines.withContext
-import org.koin.core.annotation.Singleton
+import org.koin.core.annotation.Single
 
-@Singleton
+@Single
 class GetItemsUseCase(
     private val itemsRepository: ItemsRepository,
     private val dispatcherProvider: DispatcherProvider,

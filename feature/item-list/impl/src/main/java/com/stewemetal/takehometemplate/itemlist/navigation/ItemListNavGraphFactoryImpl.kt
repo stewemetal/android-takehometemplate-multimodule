@@ -18,9 +18,9 @@ import com.stewemetal.takehometemplate.itemlist.ui.ItemListViewEvent.ItemClicked
 import com.stewemetal.takehometemplate.itemlist.ui.ItemListViewModel
 import com.stewemetal.takehometemplate.shell.domain.model.ItemId
 import org.koin.androidx.compose.koinViewModel
-import org.koin.core.annotation.Singleton
+import org.koin.core.annotation.Single
 
-@Singleton
+@Single
 internal class ItemListNavGraphFactoryImpl : ItemListNavGraphFactory {
     override fun buildNavGraph(
         navGraphBuilder: NavGraphBuilder,
