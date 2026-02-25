@@ -2,7 +2,7 @@ package com.stewemetal.dependencychecker
 
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import org.gradle.api.internal.artifacts.dependencies.DefaultProjectDependency
+import org.gradle.api.artifacts.ProjectDependency
 
 class DependencyCheckerPlugin : Plugin<Project> {
     override fun apply(project: Project) {
@@ -115,7 +115,7 @@ private fun Project.dependentModules(): List<Project> {
         .filter { it.name == "api" || it.name == "implementation" }
         .flatMap { configuration ->
             configuration.dependencies
-                .filterIsInstance<DefaultProjectDependency>()
-                .map { it.dependencyProject }
+                .filterIsInstance<ProjectDependency>()
+                .map { project(it.path) }
         }
 }
