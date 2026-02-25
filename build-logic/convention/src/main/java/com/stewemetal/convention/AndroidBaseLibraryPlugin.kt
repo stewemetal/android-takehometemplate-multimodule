@@ -23,6 +23,7 @@ class AndroidBaseLibraryPlugin : Plugin<Project> {
                 testOptions {
                     unitTests.all {
                         it.useJUnitPlatform()
+                        it.failOnNoDiscoveredTests.set(false)
                     }
                 }
             }
